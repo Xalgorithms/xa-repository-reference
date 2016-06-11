@@ -6,4 +6,3 @@ class Rule
   field :content, type: Hash
   field :src, type: String
 end
-        
