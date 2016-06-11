@@ -1,0 +1,25 @@
+doctype html
+html
+  head
+    title xa-repository-reference
+    = stylesheet_link_tag "application", media: 'all', 'data-turbolinks-track' => true
+    = yield :stylesheets
+
+    = javascript_include_tag "application", 'data-turbolinks-track' => true
+    = yield :javascripts
+
+    
+    link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"
+    = csrf_meta_tags
+
+  body data-page=controller.controller_name
+    div.navbar-fixed
+      nav
+        div.nav-wrapper
+          ul.left
+            - global_sections.each do |name|
+              li class="#{controller.controller_name.eql?(name.to_s) ? 'active' : ''}"
+                = link_to(t(".#{name}"), name)
+
+    .container
+      = yield
