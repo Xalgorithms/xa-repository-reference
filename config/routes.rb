@@ -53,4 +53,9 @@ Rails.application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
+
+  root 'registries#index'
+
+  resources :registries, only: [:index]
+  resources :rules, only: [:index]
 end

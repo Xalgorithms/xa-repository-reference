@@ -1,0 +1,5 @@
+.section
+  - organise(@rules, 4).each do |rules|
+    .row
+      = render(partial: 'row_rules', collection: rules, as: :rule)
+    

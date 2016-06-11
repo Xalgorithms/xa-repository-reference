@@ -20,4 +20,11 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  registries:
+    row_registries:
+      url: "URL: %{url}"
+      registered_as: "Registered as %{id}"
+  rules:
+    row_rules:
+      name: "Name: %{url}"
+      version: "Version: %{version}"
