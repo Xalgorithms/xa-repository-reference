@@ -1,0 +1,5 @@
+.col.s3
+  .card
+    .card-content
+      div= t('.name', url: rule.name)
+      div= t('.version', version: format_date_as_version(rule.created_at))

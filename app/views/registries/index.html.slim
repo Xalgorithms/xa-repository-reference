@@ -1,0 +1,5 @@
+.section
+  - organise(@registries, 4).each do |registries|
+    .row
+      = render(partial: 'row_registries', collection: registries, as: :registry)
+    
