@@ -1,5 +1,8 @@
 .col.s3
-  .card
+  .card id="card-#{registry.id}"
     .card-content
       div= t('.url', url: registry.url)
       div= t('.registered_as', id: registry.our_public_id)
+    .card-action
+      = link_to([:api, :v1, registry], remote: true, method: :delete, class: 'btn local-card-btn action-delete') do
+        i.material-icons delete
