@@ -1,5 +1,36 @@
-.section
-  - organise(@registries, 4).each do |registries|
-    .row
-      = render(partial: 'row_registries', collection: registries, as: :registry)
-    
+.row
+  .col-md-12
+    button.btn type="button" data-toggle="modal" data-target="#modal-add-registry"= t('.labels.add')
+.row
+  .col-md-12
+    table.table.table-condensed.table-bordered
+      tr
+        th= t('.headings.url')
+        th= t('.headings.our_id')
+      - @registries.each do |registry|
+        tr
+          td= link_to(registry.url)
+          td= registry.our_public_id
+
+.modal.fade id="modal-add-registry" tabIndex="-1" role="dialog"
+  .modal-dialog role="document"
+    = form_for([:api, :v1, Registry.new], remote: true) do |f|
+      .modal-content
+        .modal-header
+          button.close type="button" data-dismiss="modal"= fa_icon('close')
+          h4.modal-title= t('.labels.modal_add')
+        .modal-body
+          .form-group
+            = f.label(:url, t('.labels.url'))
+            = f.text_field(:url, class: 'form-control')
+
+        .modal-footer
+          button.btn.btn-default type="button" data-dismiss="modal"
+            = fa_icon('close')
+            span= t('.labels.close')
+          button.btn.btn-primary type="submit"
+            = fa_icon('check')
+            span= t('.labels.add')
+        
+
+

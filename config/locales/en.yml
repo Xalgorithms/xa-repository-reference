@@ -21,9 +21,15 @@
 
 en:
   registries:
-    row_registries:
-      url: "URL: %{url}"
-      registered_as: "Registered as %{id}"
+    index:
+      headings:
+        url: URL
+        our_id: Registered public id
+      labels:
+        add: Add
+        modal_add: Connect to registry
+        close: Close
+        url: Add the public URL for the registry
   rules:
     row_rules:
       name: "Name: %{url}"

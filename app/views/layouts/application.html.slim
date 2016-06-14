@@ -13,13 +13,13 @@ html
     = csrf_meta_tags
 
   body data-page=controller.controller_name
-    div.navbar-fixed
-      nav
-        div.nav-wrapper
-          ul.left
+    .container
+      nav.navbar.navbar-default.navbar-fixed-top
+        .container-fluid
+          ul.nav.navbar-nav
             - global_sections.each do |name|
-              li class="#{controller.controller_name.eql?(name.to_s) ? 'active' : ''}"
-                = link_to(t(".#{name}"), name)
+              li class="nav-item #{controller.controller_name.eql?(name.to_s) ? 'active' : ''}"
+                = link_to(t(".#{name}"), name, class: 'nav-link')
 
     .container
       = yield
