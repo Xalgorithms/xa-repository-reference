@@ -61,8 +61,8 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :registries, only: [:destroy]
-      resources :rules, only: [:destroy]
+      resources :registries, only: [:create, :destroy]
+      resources :rules, only: [:create, :destroy]
     end
   end
 end
