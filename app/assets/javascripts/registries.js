@@ -21,6 +21,10 @@ $(document).on('ready page:load', function () {
     return Routes.api_v1_registry_path({ id: o._id.$oid });
   };
 
+  vm.id_or_status = function (o) {
+    return o.our_public_id ? o.our_public_id : t.registering;
+  };
+
   ko.applyBindings(vm, $('#binding-point')[0]);
   register_destroy();
 });

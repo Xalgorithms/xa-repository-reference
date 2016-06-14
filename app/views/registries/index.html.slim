@@ -15,7 +15,9 @@
             a.destroy data-remote="true" rel="nofollow" data-method="delete" data-bind="attr: { href: $parent.format_registry_url($data) }"
               = fa_icon('remove')
             a data-bind="attr: { href: url }, text: url"
-          td data-bind="text: our_public_id"
+          td
+            span(data-bind="visible: !our_public_id")= fa_icon('gear spin')
+            span data-bind="text: $parent.id_or_status($data)"
 
 .modal.fade id="modal-add-registry" tabIndex="-1" role="dialog"
   .modal-dialog role="document"
@@ -41,5 +43,9 @@
   javascript:
     var vm = {
       registries: ko.observableArray(#{raw @registries.to_json})
+    };
+
+    var t = {
+      registering: "#{raw t('.labels.registering')}"
     };
 
