@@ -30,6 +30,7 @@ en:
         modal_add: Connect to registry
         close: Close
         url: Add the public URL for the registry
+        registering: Registering...
   rules:
     row_rules:
       name: "Name: %{url}"
