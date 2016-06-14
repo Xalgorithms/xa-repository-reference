@@ -16,6 +16,7 @@ gem 'slim-rails'
 gem 'jquery-rails'
 gem 'lodash-rails'
 gem 'knockoutjs-rails'
+gem 'js-routes'
 # gem 'uglifier', '>= 1.3.0'
 
 # style
