@@ -1,16 +1,18 @@
 .row
   .col-md-12
     button.btn type="button" data-toggle="modal" data-target="#modal-add-registry"= t('.labels.add')
-.row
+.row#binding-point
   .col-md-12
     table.table.table-condensed.table-bordered
-      tr
-        th= t('.headings.url')
-        th= t('.headings.our_id')
-      - @registries.each do |registry|
+      thead
         tr
-          td= link_to(registry.url)
-          td= registry.our_public_id
+          th= t('.headings.url')
+          th= t('.headings.our_id')
+      tbody data-bind="foreach: registries"
+        tr
+          td
+            a data-bind="attr: { href: url }, text: url"
+          td data-bind="text: our_public_id"
 
 .modal.fade id="modal-add-registry" tabIndex="-1" role="dialog"
   .modal-dialog role="document"
@@ -31,6 +33,10 @@
           button.btn.btn-primary type="submit"
             = fa_icon('check')
             span= t('.labels.add')
-        
 
+= content_for(:javascript) do
+  javascript:
+    var vm = {
+      registries: ko.observableArray(#{raw @registries.to_json})
+    };
 
