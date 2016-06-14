@@ -1,9 +1,10 @@
 .row
   .col-md-12
     button.btn type="button" data-toggle="modal" data-target="#modal-add-registry"= t('.labels.add')
+
 .row#binding-point
   .col-md-12
-    table.table.table-condensed.table-bordered
+    table.table.table-condensed.table-bordered data-bind="visible: any_registries"
       thead
         tr
           th= t('.headings.url')
@@ -11,6 +12,8 @@
       tbody data-bind="foreach: registries"
         tr
           td
+            a.destroy data-remote="true" rel="nofollow" data-method="delete" data-bind="attr: { href: $parent.format_registry_url($data) }"
+              = fa_icon('remove')
             a data-bind="attr: { href: url }, text: url"
           td data-bind="text: our_public_id"
 
