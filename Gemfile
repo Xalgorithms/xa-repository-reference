@@ -14,6 +14,7 @@ gem 'slim-rails'
 
 # js
 gem 'jquery-rails'
+gem 'stringjs-rails'
 gem 'lodash-rails'
 gem 'knockoutjs-rails'
 gem 'js-routes'
