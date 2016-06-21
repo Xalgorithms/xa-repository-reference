@@ -1,6 +1,6 @@
 .row
   .col-md-12
-    button.btn type="button" data-toggle="modal" data-target="#modal-add-registry"= t('.labels.add')
+    button.btn type="button" data-toggle="modal" data-target="#modal-add-registry"= t('labels.add', scope: 'shared')
 
 .row#binding-point
   .col-md-12
@@ -40,10 +40,10 @@
         .modal-footer
           button.btn.btn-default type="button" data-dismiss="modal"
             = fa_icon('close')
-            span= t('.labels.close')
+            span= t('labels.close', scope: 'shared')
           button.btn.btn-primary type="submit"
             = fa_icon('check')
-            span= t('.labels.add')
+            span= t('labels.add', scope: 'shared')
 
 = content_for(:javascript) do
   javascript:

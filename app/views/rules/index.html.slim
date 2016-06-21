@@ -1,5 +1,45 @@
-.section
-  - organise(@rules, 4).each do |rules|
-    .row
-      = render(partial: 'row_rules', collection: rules, as: :rule)
+.row
+  .col-md-12
+    button.btn type="button" data-toggle="modal" data-target="#modal-add-rule"= t('labels.add', scope: 'shared')
+
+.row#binding-point
+  .col-md-12
+    table.table.table-condensed.table-bordered data-bind="visible: any_rules"
+      thead
+        tr
+          th= t('.headings.name')
+      tbody data-bind="foreach: rules"
+        tr
+          td
+            a.destroy data-remote="true" rel="nofollow" data-method="delete" data-bind="attr: { href: $parent.format_rule_url($data) }"
+              = fa_icon('remove')
+            a data-bind="text: name"
+
+.modal.fade id="modal-add-rule" tabIndex="-1" role="dialog"
+  .modal-dialog role="document"
+    = form_for([:api, :v1, Rule.new], remote: true) do |f|
+      .modal-content
+        .modal-header
+          button.close type="button" data-dismiss="modal"= fa_icon('close')
+          h4.modal-title= t('.labels.modal_add')
+        .modal-body
+          .form-group
+            = f.label(:name, t('.labels.name'))
+            = f.text_field(:name, class: 'form-control')
+          .form-group
+            = f.label(:src, t('.labels.src'))
+            = f.text_area(:src, class: 'form-control')
+
+        .modal-footer
+          button.btn.btn-default type="button" data-dismiss="modal"
+            = fa_icon('close')
+            span= t('labels.close', scope: 'shared')
+          button.btn.btn-primary type="submit"
+            = fa_icon('check')
+            span= t('.add', scope: 'shared')
     
+= content_for(:javascript) do
+  javascript:
+    var vm = {
+      rules: ko.observableArray(#{raw @rules.to_json})
+    };
