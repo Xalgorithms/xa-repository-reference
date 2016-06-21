@@ -164,6 +164,7 @@ GEM
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
     rake (11.2.0)
+    remotipart (1.2.1)
     rspec (3.4.0)
       rspec-core (~> 3.4.0)
       rspec-expectations (~> 3.4.0)
@@ -254,6 +255,7 @@ DEPENDENCIES
   puma
   rails (= 4.2.4)
   rails_stdout_logging
+  remotipart
   rspec-rails
   sass-rails
   slim-rails

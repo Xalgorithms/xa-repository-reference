@@ -2,7 +2,7 @@ module Api
   module V1
     class RulesController < ActionController::Base
       def create
-        @rule = Rule.create(rule_args)
+        @rule = Rule.create(rule_args.except(:src))
 
         render(json: { id: @rule.id.to_s, name: @rule.name } )
       end

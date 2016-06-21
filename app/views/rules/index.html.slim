@@ -17,7 +17,7 @@
 
 .modal.fade id="modal-add-rule" tabIndex="-1" role="dialog"
   .modal-dialog role="document"
-    = form_for([:api, :v1, Rule.new], remote: true) do |f|
+    = form_for([:api, :v1, Rule.new], html: { multipart: true}, remote: true) do |f|
       .modal-content
         .modal-header
           button.close type="button" data-dismiss="modal"= fa_icon('close')
@@ -28,7 +28,7 @@
             = f.text_field(:name, class: 'form-control')
           .form-group
             = f.label(:src, t('.labels.src'))
-            = f.text_area(:src, class: 'form-control')
+            = f.file_field(:src, class: 'form-control')
 
         .modal-footer
           button.btn.btn-default type="button" data-dismiss="modal"
