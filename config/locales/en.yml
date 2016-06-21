@@ -25,12 +25,14 @@ en:
       headings:
         url: URL
         our_id: Registered public id
+        our_url: Registered URL
       labels:
         add: Add
         modal_add: Connect to registry
         close: Close
         url: Add the public URL for the registry
         registering: Registering...
+        our_url: Add the public URL for the registry to contact this repository
   rules:
     row_rules:
       name: "Name: %{url}"
