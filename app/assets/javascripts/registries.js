@@ -6,7 +6,7 @@ function register_destroy() {
   });
 }
 
-$(document).on('ready page:load', function () {
+init_on_page('registries', function () {
   $('#new_registry').on('ajax:success', function (e, o) {
     $('#modal-add-registry').modal('toggle');
     vm.registries.push(o);
