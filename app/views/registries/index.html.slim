@@ -8,6 +8,7 @@
       thead
         tr
           th= t('.headings.url')
+          th= t('.headings.our_url')
           th= t('.headings.our_id')
       tbody data-bind="foreach: registries"
         tr
@@ -15,6 +16,8 @@
             a.destroy data-remote="true" rel="nofollow" data-method="delete" data-bind="attr: { href: $parent.format_registry_url($data) }"
               = fa_icon('remove')
             a data-bind="attr: { href: url }, text: url"
+          td
+            span data-bind="text: our_url"
           td
             span(data-bind="visible: !our_public_id")= fa_icon('gear spin')
             span data-bind="text: $parent.id_or_status($data)"
@@ -30,6 +33,9 @@
           .form-group
             = f.label(:url, t('.labels.url'))
             = f.text_field(:url, class: 'form-control')
+          .form-group
+            = f.label(:our_url, t('.labels.our_url'))
+            = f.text_field(:our_url, class: 'form-control')
 
         .modal-footer
           button.btn.btn-default type="button" data-dismiss="modal"

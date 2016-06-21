@@ -33,6 +33,12 @@ gem 'jbuilder', '~> 2.0'
 # ORM/rethinkdb
 gem 'mongoid', github: 'mongoid/mongoid'
 
+# registry api
+gem 'faraday'
+gem 'faraday_middleware'
+gem 'multi_json'
+
+
 group :development, :test do
   gem 'awesome_print'
   gem 'byebug'
