@@ -4,7 +4,7 @@
 
 .row#binding-point
   .col-md-12
-    table.table.table-condensed.table-bordered data-bind="visible: any_registries"
+    table.table.table-condensed.table-bordered data-bind="visible: any"
       thead
         tr
           th= t('.headings.url')
@@ -13,7 +13,7 @@
       tbody data-bind="foreach: registries"
         tr
           td
-            a.destroy data-remote="true" rel="nofollow" data-method="delete" data-bind="attr: { href: $parent.format_registry_url($data) }"
+            a.destroy data-remote="true" rel="nofollow" data-method="delete" data-bind="attr: { href: $parent.format_url($data) }"
               = fa_icon('remove')
             a data-bind="attr: { href: url }, text: url"
           td

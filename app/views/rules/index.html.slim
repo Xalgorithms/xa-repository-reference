@@ -4,14 +4,14 @@
 
 .row#binding-point
   .col-md-12
-    table.table.table-condensed.table-bordered data-bind="visible: any_rules"
+    table.table.table-condensed.table-bordered data-bind="visible: any"
       thead
         tr
           th= t('.headings.name')
       tbody data-bind="foreach: rules"
         tr
           td
-            a.destroy data-remote="true" rel="nofollow" data-method="delete" data-bind="attr: { href: $parent.format_rule_url($data) }"
+            a.destroy data-remote="true" rel="nofollow" data-method="delete" data-bind="attr: { href: $parent.format_url($data) }"
               = fa_icon('remove')
             a data-bind="text: name"
 
