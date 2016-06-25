@@ -4,5 +4,6 @@ class Rule
 
   field :name, type: String
   field :content, type: Hash
-  field :src, type: String
+
+  attr_accessor :src
 end
