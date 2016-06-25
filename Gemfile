@@ -39,6 +39,8 @@ gem 'faraday'
 gem 'faraday_middleware'
 gem 'multi_json'
 
+# ours
+gem 'xa-rules', git: 'https://github.com/Xalgorithms/xa-rules.git'
 
 group :development, :test do
   gem 'awesome_print'
