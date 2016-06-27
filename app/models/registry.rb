@@ -1,8 +1,8 @@
 class Registry
   include Mongoid::Document
-  include Mongoid::Timestamps
-  
+
+  field :public_id, type: String
   field :url, type: String
-  field :our_public_id, type: String
+  field :registered_public_id, type: String
   field :our_url, type: String
 end

@@ -1,9 +1,8 @@
 class Rule
   include Mongoid::Document
-  include Mongoid::Timestamps
 
   field :name, type: String
-  field :content, type: Hash
+  field :public_id, type: String
 
-  attr_accessor :src
+  embeds_many :versions
 end

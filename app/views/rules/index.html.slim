@@ -11,13 +11,13 @@
       tbody data-bind="foreach: rules"
         tr
           td
-            a.destroy data-remote="true" rel="nofollow" data-method="delete" data-bind="attr: { href: $parent.format_url($data) }"
+            a rel="nofollow" data-bind="click: $parent.destroy_item, attr: { href: $parent.format_url($data) }"
               = fa_icon('remove')
-            a data-bind="text: name"
+            a data-bind="text: name, attr: { href: $parent.format_url($data) }, click: $parent.show_rule_details"
 
 .modal.fade id="modal-add-rule" tabIndex="-1" role="dialog"
   .modal-dialog role="document"
-    = form_for([:api, :v1, Rule.new], remote: true) do |f|
+    = form_for(Events::RuleAdd.new, url: api_v1_events_path, remote: true) do |f|
       .modal-content
         .modal-header
           button.close type="button" data-dismiss="modal"= fa_icon('close')

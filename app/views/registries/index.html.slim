@@ -13,18 +13,18 @@
       tbody data-bind="foreach: registries"
         tr
           td
-            a.destroy data-remote="true" rel="nofollow" data-method="delete" data-bind="attr: { href: $parent.format_url($data) }"
+            a rel="nofollow" data-bind="click: $parent.destroy_item, attr: { href: $parent.format_url($data) }"
               = fa_icon('remove')
-            a data-bind="attr: { href: url }, text: url"
+            span data-bind="text: url"
           td
             span data-bind="text: our_url"
           td
-            span(data-bind="visible: !our_public_id")= fa_icon('gear spin')
+            span(data-bind="visible: !registered_public_id")= fa_icon('gear spin')
             span data-bind="text: $parent.id_or_status($data)"
 
 .modal.fade id="modal-add-registry" tabIndex="-1" role="dialog"
   .modal-dialog role="document"
-    = form_for([:api, :v1, Registry.new], remote: true) do |f|
+    = form_for(Events::RegistryAdd.new, url: api_v1_events_path, remote: true) do |f|
       .modal-content
         .modal-header
           button.close type="button" data-dismiss="modal"= fa_icon('close')

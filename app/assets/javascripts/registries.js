@@ -1,6 +1,6 @@
 init_on_page('registries', function () {
   vm.id_or_status = function (o) {
-    return o.our_public_id ? o.our_public_id : t.registering;
+    return o.registered_public_id ? o.registered_public_id : t.registering;
   };
 
   manage_collection(vm, {
@@ -9,8 +9,15 @@ init_on_page('registries', function () {
       add: '#modal-add-registry'
     },
     actions: {
-      add: '#new_registry'
+      add: '#new_events_registry_add'
     },
-    path: Routes.api_v1_registry_path
+    routes: {
+      item: Routes.api_v1_registry_path
+    },
+    builders: {
+      destroy: function (o) {
+        return { 'events_registry_destroy': { 'registry_id' : o.id } }
+      }
+    }
   });
 });

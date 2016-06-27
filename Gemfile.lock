@@ -119,6 +119,8 @@ GEM
       railties (>= 3.1)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
+    macaddr (1.7.1)
+      systemu (~> 2.6.2)
     mail (2.6.4)
       mime-types (>= 1.16, < 4)
     method_source (0.8.2)
@@ -221,6 +223,7 @@ GEM
       sprockets (>= 3.0.0)
     stringjs-rails (3.3.1)
       railties (> 3.1)
+    systemu (2.6.5)
     temple (0.7.7)
     thin (1.7.0)
       daemons (~> 1.0, >= 1.0.9)
@@ -233,6 +236,8 @@ GEM
       coffee-rails
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
+    uuid (2.3.8)
+      macaddr (~> 1.0)
     web-console (2.3.0)
       activemodel (>= 4.0)
       binding_of_caller (>= 0.7.2)
@@ -271,6 +276,7 @@ DEPENDENCIES
   stringjs-rails
   thin
   turbolinks
+  uuid
   web-console (~> 2.0)
   xa-rules!
 

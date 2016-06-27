@@ -39,6 +39,9 @@ gem 'faraday'
 gem 'faraday_middleware'
 gem 'multi_json'
 
+# other
+gem 'uuid'
+
 # ours
 gem 'xa-rules', git: 'https://github.com/Xalgorithms/xa-rules.git'
 
