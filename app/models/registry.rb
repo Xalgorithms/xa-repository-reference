@@ -5,4 +5,5 @@ class Registry
   field :url, type: String
   field :registered_public_id, type: String
   field :our_url, type: String
+  field :our_namespaces, type: Array
 end

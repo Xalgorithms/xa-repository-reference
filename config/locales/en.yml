@@ -26,6 +26,7 @@ en:
         url: URL
         our_id: Registered public id
         our_url: Registered URL
+        our_namespaces: Namespaces
       labels:
         modal_add: Connect to registry
         url: Add the public URL for the registry

@@ -1,19 +1,21 @@
 .row
   .col-md-12
-    button.btn type="button" data-toggle="modal" data-target="#modal-add-rule"= t('labels.add', scope: 'shared')
+    button.btn.pull-right type="button" data-toggle="modal" data-target="#modal-add-rule"= t('labels.add', scope: 'shared')
 
 .row#binding-point
-  .col-md-12
-    table.table.table-condensed.table-bordered data-bind="visible: any"
-      thead
-        tr
-          th= t('.headings.name')
-      tbody data-bind="foreach: rules"
-        tr
-          td
-            a rel="nofollow" data-bind="click: $parent.destroy_item, attr: { href: $parent.format_url($data) }"
-              = fa_icon('remove')
-            a data-bind="text: name, attr: { href: $parent.format_url($data) }, click: $parent.show_rule_details"
+  .container
+    .row
+      .col-md-8
+        table.table data-bind="visible: any"
+          thead
+            tr
+              th= t('.headings.name')
+          tbody data-bind="foreach: rules"
+            tr
+              td
+                a rel="nofollow" data-bind="click: $parent.destroy_item, attr: { href: $parent.format_url($data) }"
+                  = fa_icon('remove')
+                a data-bind="text: name, attr: { href: $parent.format_url($data) }, click: $parent.show_rule_details"
 
 .modal.fade id="modal-add-rule" tabIndex="-1" role="dialog"
   .modal-dialog role="document"

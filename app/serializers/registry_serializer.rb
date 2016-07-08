@@ -5,6 +5,7 @@ class RegistrySerializer
       url: registry.url,
       our_url: registry.our_url,
       registered_public_id: registry.registered_public_id,
+      our_namespaces: registry.our_namespaces,
     }
   end
 end

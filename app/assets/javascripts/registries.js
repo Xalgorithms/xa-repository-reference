@@ -3,6 +3,10 @@ init_on_page('registries', function () {
     return o.registered_public_id ? o.registered_public_id : t.registering;
   };
 
+  vm.namespaces = function (a) {
+    return _.join(a, ', ');
+  };
+
   manage_collection(vm, {
     collection: 'registries',
     modals: {
@@ -16,7 +20,7 @@ init_on_page('registries', function () {
     },
     builders: {
       destroy: function (o) {
-        return { 'events_registry_destroy': { 'registry_id' : o.id } }
+        return { 'events_registry_destroy': { 'registry_id' : o.id } };
       }
     }
   });

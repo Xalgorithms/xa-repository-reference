@@ -5,7 +5,13 @@ class EventService
     e = Events::RegistryAdd.where(id: event_id).first
     cl = RegistryClient.new(e.url)
     cl.register(e.our_url) do |public_id|
-      e.registry = Registry.create(url: e.url, our_url: e.our_url, public_id: UUID.generate, registered_public_id: public_id)
+      e.registry = Registry.create(
+        url: e.url,
+        our_url: e.our_url,
+        our_namespaces: e.our_namespaces.split(/\s+/),
+        public_id: UUID.generate,
+        registered_public_id: public_id,
+      )
       e.save
     end
   end

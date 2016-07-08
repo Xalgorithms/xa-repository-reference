@@ -13,6 +13,7 @@
 //= require jquery
 //= require bootstrap-sprockets
 //= require jquery_ujs
+//= require lodash
 //= require string
 //= require knockout
 //= require js-routes
