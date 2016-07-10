@@ -18,7 +18,7 @@ gem 'stringjs-rails'
 gem 'lodash-rails'
 gem 'knockoutjs-rails'
 gem 'js-routes'
-# gem 'uglifier', '>= 1.3.0'
+gem 'uglifier', '>= 1.3.0'
 
 # style
 gem 'sass-rails'
