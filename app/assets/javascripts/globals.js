@@ -40,5 +40,5 @@ function manage_collection(vm, opts) {
     });
   };
 
-  ko.applyBindings(vm, $('#binding-point')[0]);
+  ko.applyBindings(vm, $('#collection')[0]);
 }
