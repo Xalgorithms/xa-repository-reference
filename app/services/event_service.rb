@@ -26,7 +26,8 @@ class EventService
 
   def self.rule_add(event_id)
     e = Events::RuleAdd.where(id: event_id).first
-    rule = Rule.create(name: e.name, public_id: UUID.generate)
+    ns = Namespace.where(public_id: e.namespace_id).first
+    rule = Rule.create(name: e.name, namespace: ns, public_id: UUID.generate)
     Version.create(src: e.src, rule: rule)
     ParseService.parse_versions(rule._id.to_s)
     e.rule = rule

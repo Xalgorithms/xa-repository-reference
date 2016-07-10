@@ -20,4 +20,10 @@ init_on_page('rules', function () {
       }
     }
   });
+
+  var form_vm = {
+      namespaces: ko.observableArray(namespaces)
+  };
+
+  ko.applyBindings(form_vm, document.getElementById('modal-add-rule'));
 });

@@ -10,12 +10,14 @@
           thead
             tr
               th= t('.headings.name')
+              th= t('.headings.namespace')
           tbody data-bind="foreach: rules"
             tr
               td
                 a rel="nofollow" data-bind="click: $parent.destroy_item, attr: { href: $parent.format_url($data) }"
                   = fa_icon('remove')
                 a data-bind="text: name, attr: { href: $parent.format_url($data) }, click: $parent.show_rule_details"
+              td data-bind="text: namespace.name"
 
 .modal.fade id="modal-add-rule" tabIndex="-1" role="dialog"
   .modal-dialog role="document"
@@ -31,6 +33,10 @@
           .form-group
             = f.label(:src, t('.labels.src'))
             = f.text_area(:src, class: 'form-control')
+          .form-group
+            = f.label(:namespace_id, t('.labels.namespace'))
+            = f.select(:namespace_id, [], {}, { 'class' => 'form-control', 'data-bind' => "foreach: namespaces" })
+              option data-bind="attr: { value: id }, text: name"
 
         .modal-footer
           button.btn.btn-default type="button" data-dismiss="modal"
@@ -45,3 +51,5 @@
     var vm = {
       rules: ko.observableArray(#{raw @rules.to_json})
     };
+
+    var namespaces = #{raw @namespaces.to_json};
