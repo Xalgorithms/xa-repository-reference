@@ -66,4 +66,5 @@ group :production, :staging do
   gem 'foreman'
   gem 'puma'
   gem 'rails_stdout_logging'
+  gem 'rails_12factor'
 end
