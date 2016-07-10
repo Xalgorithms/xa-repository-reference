@@ -3,7 +3,7 @@ class RuleSerializer
     {
       id: rule.public_id,
       name: rule.name,
-      versions: rule.versions.map { |ver| ver.created_at.to_s(:number) },
+      versions: rule.versions.map { |ver| ver.code },
       namespace: { name: rule.namespace.name },
     }
   end

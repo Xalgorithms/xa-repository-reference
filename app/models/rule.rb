@@ -6,4 +6,5 @@ class Rule
 
   belongs_to :namespace
   embeds_many :versions
+  embeds_many :registrations
 end
