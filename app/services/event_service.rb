@@ -38,5 +38,17 @@ class EventService
     rule = Rule.where(public_id: e.rule_id).first
     rule.destroy
   end
+
+  def self.namespace_add(event_id)
+    e = Events::NamespaceAdd.where(id: event_id).first
+    ns = Namespace.create(name: e.name, public_id: UUID.generate)
+    e.namespace = ns
+    e.save
+  end
+
+  def self.namespace_destroy(event_id)
+    e = Events::NamespaceDestroy.where(id: event_id).first
+    Namespace.where(public_id: e.namespace_id).first.destroy
+  end
 end
   

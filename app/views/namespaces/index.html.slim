@@ -1,0 +1,43 @@
+.row
+  .col-md-12
+    button.btn type="button" data-toggle="modal" data-target="#modal-add-namespace"= t('labels.add', scope: 'shared')
+
+.row#binding-point
+  .col-md-12
+    table.table.table-condensed.table-bordered data-bind="visible: any"
+      thead
+        tr
+          th= t('.headings.name')
+      tbody data-bind="foreach: namespaces"
+        tr
+          td
+            a rel="nofollow" data-bind="click: $parent.destroy_item, attr: { href: $parent.format_url($data) }"
+              = fa_icon('remove')
+            span data-bind="text: name"
+
+.modal.fade id="modal-add-namespace" tabIndex="-1" role="dialog"
+  .modal-dialog role="document"
+    = form_for(Events::NamespaceAdd.new, url: api_v1_events_path, remote: true) do |f|
+      .modal-content
+        .modal-header
+          button.close type="button" data-dismiss="modal"= fa_icon('close')
+          h4.modal-title= t('.labels.modal_add')
+        .modal-body
+          .form-group
+            = f.label(:name, t('.labels.name'))
+            = f.text_field(:name, class: 'form-control')
+
+        .modal-footer
+          button.btn.btn-default type="button" data-dismiss="modal"
+            = fa_icon('close')
+            span= t('labels.close', scope: 'shared')
+          button.btn.btn-primary type="submit"
+            = fa_icon('check')
+            span= t('labels.add', scope: 'shared')
+
+= content_for(:javascript) do
+  javascript:
+    var vm = {
+      namespaces: ko.observableArray(#{raw @namespaces.to_json})
+    };
+

@@ -1,5 +1,5 @@
 module ApplicationHelper
   def global_sections
-    [:registries, :rules]
+    [:registries, :namespaces, :rules]
   end
 end

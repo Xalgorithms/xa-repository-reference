@@ -3,10 +3,6 @@ init_on_page('registries', function () {
     return o.registered_public_id ? o.registered_public_id : t.registering;
   };
 
-  vm.namespaces = function (a) {
-    return _.join(a, ', ');
-  };
-
   manage_collection(vm, {
     collection: 'registries',
     modals: {

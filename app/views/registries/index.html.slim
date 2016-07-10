@@ -10,7 +10,6 @@
           th= t('.headings.url')
           th= t('.headings.our_url')
           th= t('.headings.our_id')
-          th= t('.headings.our_namespaces')
       tbody data-bind="foreach: registries"
         tr
           td
@@ -22,8 +21,6 @@
           td
             span(data-bind="visible: !registered_public_id")= fa_icon('gear spin')
             span data-bind="text: $parent.id_or_status($data)"
-          td
-            span(data-bind="text: $parent.namespaces(our_namespaces)")
 
 .modal.fade id="modal-add-registry" tabIndex="-1" role="dialog"
   .modal-dialog role="document"
@@ -39,9 +36,6 @@
           .form-group
             = f.label(:our_url, t('.labels.our_url'))
             = f.text_field(:our_url, class: 'form-control')
-          .form-group
-            = f.label(:our_namespaces, t('.labels.our_namespaces'))
-            = f.text_field(:our_namespaces, class: 'form-control')
 
         .modal-footer
           button.btn.btn-default type="button" data-dismiss="modal"

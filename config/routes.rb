@@ -58,12 +58,14 @@ Rails.application.routes.draw do
 
   resources :registries, only: [:index]
   resources :rules, only: [:index]
+  resources :namespaces, only: [:index]
 
   namespace :api do
     namespace :v1 do
       resources :events, only: [:create, :show]
       resources :registries, only: [:show]
       resources :rules, only: [:show]
+      resources :namespaces, only: [:show]
     end
   end
 end

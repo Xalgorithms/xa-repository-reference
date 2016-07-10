@@ -5,7 +5,7 @@ module Api
         @events = {
           'events_registry_add' => {
             klass: Events::RegistryAdd,
-            args: [:url, :our_url, :our_namespaces],
+            args: [:url, :our_url],
           },
           'events_registry_destroy' => {
             klass: Events::RegistryDestroy,
@@ -18,6 +18,14 @@ module Api
           'events_rule_destroy' => {
             klass: Events::RuleDestroy,
             args: [:rule_id],
+          },
+          'events_namespace_add' => {
+            klass: Events::NamespaceAdd,
+            args: [:name],
+          },
+          'events_namespace_destroy' => {
+            klass: Events::NamespaceDestroy,
+            args: [:namespace_id],
           },
         }
       
