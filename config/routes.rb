@@ -64,7 +64,10 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :events, only: [:create, :show]
       resources :registries, only: [:show]
-      resources :rules, only: [:show]
+      resources :rules, only: [:show] do
+        # this is registry<-->repository api
+        resources :versions, only: [:show]
+      end
       resources :namespaces, only: [:show]
     end
   end
