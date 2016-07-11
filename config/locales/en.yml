@@ -33,13 +33,18 @@ en:
         registering: Registering...
         our_url: Add the public URL for the registry to contact this repository
         name: Name
-        namespace: Namespace
   rules:
     index:
       labels:
         name: Name
         src: Source
+        namespace: Namespace
+        rule_type: Type
+        
   shared:
     labels:
       add: Add
       close: Close
+    rule_types:
+      table: Table
+      xalgo: Xalgo

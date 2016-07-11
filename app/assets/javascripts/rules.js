@@ -22,7 +22,8 @@ init_on_page('rules', function () {
   });
 
   var form_vm = {
-      namespaces: ko.observableArray(namespaces)
+      namespaces: ko.observableArray(namespaces),
+      rule_types: ko.observableArray(rule_types)
   };
 
   ko.applyBindings(form_vm, document.getElementById('modal-add-rule'));

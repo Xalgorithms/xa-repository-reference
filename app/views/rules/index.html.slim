@@ -11,6 +11,8 @@
             tr
               th= t('.headings.name')
               th= t('.headings.namespace')
+              th= t('.headings.type')
+              th= t('.headings.versions')
           tbody data-bind="foreach: rules"
             tr
               td
@@ -18,6 +20,10 @@
                   = fa_icon('remove')
                 a data-bind="text: name, attr: { href: $parent.format_url($data) }, click: $parent.show_rule_details"
               td data-bind="text: namespace.name"
+              td data-bind="text: type"
+              td
+                ul.list-inline data-bind="foreach: versions"
+                  li data-bind="text: $data"
 
 .modal.fade id="modal-add-rule" tabIndex="-1" role="dialog"
   .modal-dialog role="document"
@@ -37,6 +43,10 @@
             = f.label(:namespace_id, t('.labels.namespace'))
             = f.select(:namespace_id, [], {}, { 'class' => 'form-control', 'data-bind' => "foreach: namespaces" })
               option data-bind="attr: { value: id }, text: name"
+          .form-group
+            = f.label(:rule_type, t('.labels.rule_type'))
+            = f.select(:rule_type, [], {}, { 'class' => 'form-control', 'data-bind' => "foreach: rule_types" })
+              option data-bind="attr: { value: key }, text: label"
 
         .modal-footer
           button.btn.btn-default type="button" data-dismiss="modal"
@@ -53,3 +63,4 @@
     };
 
     var namespaces = #{raw @namespaces.to_json};
+    var rule_types = #{raw @rule_types.to_json};

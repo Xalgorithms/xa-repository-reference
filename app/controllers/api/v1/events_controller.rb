@@ -13,7 +13,7 @@ module Api
           },
           'events_rule_add' => {
             klass: Events::RuleAdd,
-            args: [:name, :src, :namespace_id],
+            args: [:name, :src, :namespace_id, :rule_type],
           },
           'events_rule_destroy' => {
             klass: Events::RuleDestroy,
