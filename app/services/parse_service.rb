@@ -24,7 +24,7 @@ class ParseService
           ver.content = @parsers.fetch(rule_type, method(:parse_unknown)).call(ver.src)
           ver.save
         else
-          Rails.info("# already parsed")
+          Rails.logger.info("# already parsed")
         end
       end
     end
