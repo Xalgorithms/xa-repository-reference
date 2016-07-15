@@ -32,8 +32,9 @@ gem 'jbuilder', '~> 2.0'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
-# ORM/rethinkdb
-gem 'mongoid', github: 'mongoid/mongoid'
+# ORM/mongo
+#gem 'mongoid', github: 'mongoid/mongoid'
+gem 'mongoid', '~> 5.1.0'
 
 # registry api
 gem 'faraday'
