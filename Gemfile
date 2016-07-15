@@ -19,6 +19,7 @@ gem 'lodash-rails'
 gem 'knockoutjs-rails'
 gem 'js-routes'
 gem 'uglifier', '>= 1.3.0'
+gem 'coffee-rails'
 
 # style
 gem 'sass-rails'
