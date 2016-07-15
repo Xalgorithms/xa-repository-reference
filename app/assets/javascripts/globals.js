@@ -5,7 +5,7 @@ function only_on_page(name, fn) {
 }
 
 function init_on_page(name, fn) {
-  $(document).on('ready page:load', function () {
+  $(document).on('turbolinks:load', function () {
     only_on_page(name, function() {
       fn();
     });
