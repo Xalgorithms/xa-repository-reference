@@ -5,7 +5,7 @@ services:
 
 before_install:
   # start any containers we need for tests
-  - ./start-containers.sh
+  - ./start_containers.sh
 
 script:
   # core build is to run the tests
