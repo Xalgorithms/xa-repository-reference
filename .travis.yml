@@ -8,7 +8,6 @@ deploy:
   provider: releases
   api_key:
     secure: laQeg0DPeW00/VViBPLFI6T71LH3WZW41bMQH9aW7bkUh+7oXGimkUs1TARyqwQkvmsZVIUfe8V7dlhxcI9gnYToBhPZtHchMTXZSIo12UD/2oHkkXPIHbZ3yHTOOStEWsRf+THQN59588Nbx0eULx9/opjhwPrtYlUdi3MCZwH+R5Djx5wrYje3SRBLaT41F+yiWsS4kW/4Q5lz2xiSMYIZZNra6X31SdjSAFUzBtPnGram+jvldGPjroWAO94ZeHjV+9l8RtlFNwQTVjgJ+kTQetOCiksqqtNJD5Z6R+phJkWiUg+BK1AZ4ul4Wj1x9fwKri7tuS+X3k+uNDV1L+wrXddz9hKRI3nTSoBA35+tiowDmzZ8M9BbdoZrnHU/A3daqwoTwfW6v723u/L9fCmOWIbCBPJoUoA5VEi4RrlIAJrT9dv3JyKT5D4DnSsU/MJJUA4r5cnr+rikyTlcB/S51li+LemNiB7AtysPmk71iU5wDmFIe57WKaAzfGVd3pWtrfCGs9+4pn5zwuzJos502wJzbj5EzOH7izkHF1XpiExb97T9w+RKbv3PQ24cZ6c8umRfwkWmgVtDWBsE7zPocOfqeeID6wDVdtLhj8YC+pR310v0nXwWIDM7om8LH0vylzlKDFpoITF8k76s1aHH9nPf1Rye/6X6LENJze4=
-  file: ''
   on:
     repo: Xalgorithms/xa-repository-reference
   tags: true
