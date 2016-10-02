@@ -3,12 +3,14 @@ language: ruby
 services:
   - docker
 
+before_install:
+  # start any containers we need for tests
+  - ./start-containers.sh
+
 script:
-  - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-  - docker build -t karfai42/xa-repository-reference:production -f Dockerfile.production .
-  - docker push karfai42/xa-repository-reference:production
-  - if [ ! -z "$TRAVIS_TAG" ]; then
-      docker build -t karfai42/xa-repository-reference:$TRAVIS_TAG -t karfai42/xa-repository-reference:latest -f Dockerfile.production .
-      docker push karfai42/xa-repository-reference:$TRAVIS_TAG
-      docker push karfai42/xa-repository-reference:latest
-    fi
+  # core build is to run the tests
+  - bundle exec rake spec
+  
+after_success:
+  - ./build_images.sh
+  - ./publish_images.sh
