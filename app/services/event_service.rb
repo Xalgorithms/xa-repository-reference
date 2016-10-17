@@ -43,11 +43,17 @@ class EventService
       Rails.logger.debug("created (total=#{Rule.all.count})")
     end
 
+    Rails.logger.debug("> rules (count=#{Rule.all.count})")
+
     Rails.logger.debug("> creating new version")
     Version.create(src: e.src, rule: rule, code: DateTime.now.to_s(:number))
 
+    Rails.logger.debug("> rules (count=#{Rule.all.count})")
+
     Rails.logger.debug("> triggering parse of new version")
     ParseService.parse_versions(e.rule_type.to_sym, rule._id.to_s)
+
+    Rails.logger.debug("> rules (count=#{Rule.all.count})")
 
     # NOTE: if services become async, this should be attached to the completion of the async
     # parse processing
