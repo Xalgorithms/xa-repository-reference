@@ -1,8 +1,8 @@
 GIT
   remote: https://github.com/Xalgorithms/xa-rules.git
-  revision: e0940c401264e662c03bcd2bb97fa14298b1360d
+  revision: 527d61e593db1aaf4cec2cca10b0b77f1b993c40
   specs:
-    xa-rules (0.0.4)
+    xa-rules (0.0.5)
       faraday
       faraday_middleware
       parslet

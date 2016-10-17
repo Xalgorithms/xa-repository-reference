@@ -32,7 +32,7 @@ class ParseService
     private
 
     def parse_xalgo(src)
-      parse_buffer(src)
+      parse_buffer(src, Rails.logger)
     end
 
     def parse_table(src)

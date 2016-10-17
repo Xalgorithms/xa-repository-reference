@@ -27,26 +27,41 @@ class EventService
     e = Events::RuleAdd.where(id: event_id).first
 
     if !e.namespace_id && e.namespace_name
+      Rails.logger.debug("> creating namespace (name=#{e.namespace_name})")
       ns = Namespace.where(name: e.namespace_name).first
       ns = Namespace.create(name: e.namespace_name, public_id: UUID.generate) if !ns
     else
+      Rails.logger.debug("> using existing namespace (id=#{e.namespace_id})")
       ns = Namespace.where(public_id: e.namespace_id).first
     end
 
+    Rails.logger.debug("> locating existing rule (name=#{e.name}; namespace=#{ns.id})")
     rule = Rule.where(name: e.name, namespace: ns).first
-    rule = Rule.create(name: e.name, namespace: ns, public_id: UUID.generate, rule_type: e.rule_type) if !rule
-    
+    if !rule
+      Rails.logger.debug("> creating rule (name=#{e.name}; type=#{e.rule_type})")
+      rule = Rule.create(name: e.name, namespace: ns, public_id: UUID.generate, rule_type: e.rule_type)
+      Rails.logger.debug("created (total=#{Rule.all.count})")
+    end
+
+    Rails.logger.debug("> creating new version")
     Version.create(src: e.src, rule: rule, code: DateTime.now.to_s(:number))
+
+    Rails.logger.debug("> triggering parse of new version")
     ParseService.parse_versions(e.rule_type.to_sym, rule._id.to_s)
 
+    # NOTE: if services become async, this should be attached to the completion of the async
+    # parse processing
     ver = rule.versions.first.code
     Registry.all.each do |registry|
+      Rails.logger.debug("> sending new version to registry (url=#{registry.url})")
       cl = RegistryClient.new(registry.url)      
       cl.create_rule(rule.namespace.name, rule.name, ver, registry.registered_public_id) do |public_id|
+        Rails.logger.debug("> creating registration (registry=#{registry.public_id}; rule=#{public_id})")
         Registration.create(registry_public_id: registry.public_id, rule_public_id: public_id, version: ver, rule: rule)
       end
     end
-    
+
+    Rails.logger.debug("> rules (count=#{Rule.all.count})")
     e.rule = rule
     e.save
   end
