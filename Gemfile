@@ -55,6 +55,7 @@ group :development, :test do
   gem 'faker'
   gem 'fuubar'
   gem "rspec-rails"
+  gem "mongoid-rspec"
 end
 
 group :development do
