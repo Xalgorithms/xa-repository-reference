@@ -70,6 +70,7 @@ Rails.application.routes.draw do
         resources :versions, only: [:show]
       end
       resources :namespaces, only: [:show]
+      resources :git_repositories, only: [:show]
     end
   end
 end

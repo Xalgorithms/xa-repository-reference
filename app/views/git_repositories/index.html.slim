@@ -4,7 +4,20 @@
 
 .row#collection
   .col-md-12
+    table.table.table-condensed.table-bordered data-bind="visible: any"
+      thead
+        tr
+          th= t('.headings.name')
+      tbody data-bind="foreach: git_repositories"
+        tr
+          td
+            a rel="nofollow" data-bind="click: $parent.destroy_item, attr: { href: $parent.format_url($data) }"
+              = fa_icon('remove')
+            a data-bind="text: name, attr: { href: url }"
+            
 
 = content_for(:javascript) do
   javascript:
-
+    var vm = {
+      git_repositories: ko.observableArray(#{raw @repositories.to_json})
+    };

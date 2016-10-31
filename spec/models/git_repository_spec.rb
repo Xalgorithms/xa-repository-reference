@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 describe GitRepository, type: :model do
+  after(:all) do
+    GitRepository.destroy_all
+  end
+
   it 'should have a public id' do
     grm = GitRepository.create
     expect(grm.public_id).to_not be_nil

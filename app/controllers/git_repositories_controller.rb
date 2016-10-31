@@ -1,5 +1,5 @@
 class GitRepositoriesController < ApplicationController
   def index
-    @repositories = GitRepository.all
+    @repositories = GitRepositorySerializer.many(GitRepository.all)
   end
 end
