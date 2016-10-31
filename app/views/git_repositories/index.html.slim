@@ -1,6 +1,6 @@
 .row
   .col-md-12
-    button.btn type="button" data-toggle="modal" data-target="#modal-add-repo"= t('labels.add', scope: 'shared')
+    button.btn type="button" data-toggle="modal" data-target="#modal-add-git-repository"= t('labels.add', scope: 'shared')
 
 .row#collection
   .col-md-12
@@ -15,7 +15,7 @@
               = fa_icon('remove')
             a data-bind="text: name, attr: { href: url }"
             
-.modal.fade id="modal-add-repo" tabIndex="-1" role="dialog"
+.modal.fade id="modal-add-git-repository" tabIndex="-1" role="dialog"
   .modal-dialog role="document"
     = form_for(Events::GitRepositoryAdd.new, url: api_v1_events_path, remote: true) do |f|
       .modal-content
