@@ -27,6 +27,10 @@ module Api
             klass: Events::NamespaceDestroy,
             args: [:namespace_id],
           },
+          'events_git_repository_add' => {
+            klass: Events::GitRepositoryAdd,
+            args: [:name, :url],
+          },
         }
       
         @event = make

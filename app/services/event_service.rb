@@ -97,5 +97,12 @@ class EventService
     e = Events::NamespaceDestroy.where(id: event_id).first
     Namespace.where(public_id: e.namespace_id).first.destroy
   end
+
+  def self.git_repository_add(event_id)
+    e = Events::GitRepositoryAdd.where(id: event_id).first
+    grm = GitRepository.create(name: e.name, url: e.url)
+    e.git_repository = grm
+    e.save
+  end
 end
   
