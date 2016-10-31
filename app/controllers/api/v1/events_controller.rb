@@ -31,6 +31,10 @@ module Api
             klass: Events::GitRepositoryAdd,
             args: [:name, :url],
           },
+          'events_git_repository_destroy' => {
+            klass: Events::GitRepositoryDestroy,
+            args: [:git_repository_id],
+          },
         }
       
         @event = make

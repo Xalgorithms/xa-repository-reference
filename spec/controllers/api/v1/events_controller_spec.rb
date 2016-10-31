@@ -10,6 +10,7 @@ describe Api::V1::EventsController, type: :controller do
   
   after(:all) do
     Events::GitRepositoryAdd.destroy_all
+    Events::GitRepositoryDestroy.destroy_all
     GitRepository.destroy_all
   end
   
@@ -27,6 +28,16 @@ describe Api::V1::EventsController, type: :controller do
       expect(em).to_not be_nil
       expect(em.name).to eql(vals[:name])
       expect(em.url).to eql(vals[:url])
+    end
+  end
+
+  it 'should accept git repository destroy events' do
+    rand_array_of_models(:git_repository).each do |grm|
+      post(:create, 'events_git_repository_destroy' => { git_repository_id: grm.public_id })
+
+      em = Events::GitRepositoryDestroy.where(git_repository_id: grm.public_id).first
+      expect(em).to_not be_nil
+      expect(GitRepository.where(public_id: grm.public_id).first).to be_nil
     end
   end
 

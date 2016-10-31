@@ -1,12 +1,13 @@
 class EventSerializer
   EVENTS = {
-    Events::RegistryAdd      => :registry_add,
-    Events::RegistryDestroy  => :registry_destroy,
-    Events::RuleAdd          => :rule_add,
-    Events::RuleDestroy      => :rule_destroy,
-    Events::NamespaceAdd     => :namespace_add,
-    Events::NamespaceDestroy => :namespace_destroy,
-    Events::GitRepositoryAdd => :git_repository_add,
+    Events::RegistryAdd          => :registry_add,
+    Events::RegistryDestroy      => :registry_destroy,
+    Events::RuleAdd              => :rule_add,
+    Events::RuleDestroy          => :rule_destroy,
+    Events::NamespaceAdd         => :namespace_add,
+    Events::NamespaceDestroy     => :namespace_destroy,
+    Events::GitRepositoryAdd     => :git_repository_add,
+    Events::GitRepositoryDestroy => :git_repository_destroy,
   }
   
   def self.as_json(e)
@@ -61,6 +62,13 @@ class EventSerializer
     {
       effect: 'addition',
       url: Rails.application.routes.url_helpers.api_v1_git_repository_path(e.git_repository.public_id),
+    }
+  end
+
+  def self.git_repository_destroy(e)
+    {
+      effect: 'deletion',
+      id: e.git_repository_id,
     }
   end
 end

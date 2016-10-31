@@ -16,4 +16,14 @@ describe EventSerializer do
       expect(EventSerializer.as_json(e)).to eql(ex)
     end
   end
+  
+  it 'should serialize GitRepositoryDelete' do
+    rand_array_of_models(:events_git_repository_destroy).each do |e|
+      ex = {
+        effect: 'deletion',
+        id: e.git_repository_id
+      }
+      expect(EventSerializer.as_json(e)).to eql(ex)
+    end
+  end
 end

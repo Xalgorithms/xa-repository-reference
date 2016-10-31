@@ -104,5 +104,11 @@ class EventService
     e.git_repository = grm
     e.save
   end
+
+  def self.git_repository_destroy(event_id)
+    e = Events::GitRepositoryDestroy.where(id: event_id).first
+    m = GitRepository.where(public_id: e.git_repository_id).first
+    m.destroy if m
+  end
 end
   
