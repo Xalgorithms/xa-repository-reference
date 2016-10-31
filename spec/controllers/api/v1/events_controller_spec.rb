@@ -10,6 +10,7 @@ describe Api::V1::EventsController, type: :controller do
   
   after(:all) do
     Events::GitRepositoryAdd.destroy_all
+    GitRepository.destroy_all
   end
   
   it 'should accept git repository add events' do
@@ -26,6 +27,16 @@ describe Api::V1::EventsController, type: :controller do
       expect(em).to_not be_nil
       expect(em.name).to eql(vals[:name])
       expect(em.url).to eql(vals[:url])
+    end
+  end
+
+  it 'should show git repository add events' do
+    rand_array_of_models(:events_git_repository_add).each do |gram|
+      get(:show, id: gram.public_id)
+      
+      gram.reload
+      expect(response).to be_success
+      expect(response_json).to eql(encode_decode(EventSerializer.as_json(gram)))
     end
   end
 end
