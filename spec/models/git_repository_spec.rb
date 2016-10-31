@@ -18,4 +18,13 @@ describe GitRepository, type: :model do
     grm = GitRepository.create(url: url)
     expect(grm.url).to eql(url)
   end
+
+  it 'should have a name' do
+    grm = GitRepository.create
+    expect(grm.name).to be_nil
+
+    name = Faker::Hipster.word
+    grm = GitRepository.create(name: name)
+    expect(grm.name).to eql(name)
+  end
 end

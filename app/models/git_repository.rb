@@ -3,6 +3,7 @@ class GitRepository
 
   field :public_id, type: String
   field :url,       type: String
+  field :name,      type: String
 
   def initialize(*args)
     super(*args)
