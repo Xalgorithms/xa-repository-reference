@@ -103,12 +103,16 @@ class EventService
     grm = GitRepository.create(name: e.name, url: e.url)
     e.git_repository = grm
     e.save
+    GitService.init(grm._id.to_s)
   end
 
   def self.git_repository_destroy(event_id)
     e = Events::GitRepositoryDestroy.where(id: event_id).first
     m = GitRepository.where(public_id: e.git_repository_id).first
-    m.destroy if m
+    if m
+      GitService.clean(m._id.to_s)
+      m.destroy
+    end
   end
 end
   

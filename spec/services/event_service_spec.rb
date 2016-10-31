@@ -7,6 +7,8 @@ describe EventService do
   end
   
   it 'should be triggered by creating GitRepositoryAddEvent' do
+    expect(GitService).to receive(:init).at_least(:once)
+
     rand_array_of_models(:events_git_repository_add).each do |gram|
       grm = GitRepository.where(name: gram.name, url: gram.url).first
       expect(grm).to_not be_nil

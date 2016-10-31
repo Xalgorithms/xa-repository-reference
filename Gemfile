@@ -40,6 +40,7 @@ gem 'mongoid', '~> 5.1.0'
 gem 'faraday'
 gem 'faraday_middleware'
 gem 'multi_json'
+gem 'rugged', git: 'https://github.com/libgit2/rugged.git', submodules: true
 
 # other
 gem 'uuid'

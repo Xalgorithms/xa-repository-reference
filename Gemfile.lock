@@ -7,6 +7,13 @@ GIT
       faraday_middleware
       parslet
 
+GIT
+  remote: https://github.com/libgit2/rugged.git
+  revision: e6560af17e7186b119574eaf094db56209232c58
+  submodules: true
+  specs:
+    rugged (0.25.0b10)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -285,6 +292,7 @@ DEPENDENCIES
   rails_12factor
   rails_stdout_logging
   rspec-rails
+  rugged!
   sass-rails
   slim-rails
   spring

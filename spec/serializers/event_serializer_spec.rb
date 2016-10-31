@@ -7,6 +7,8 @@ describe EventSerializer do
   end
   
   it 'should serialize GitRepositoryAdd' do
+    expect(GitService).to receive(:init).at_least(:once)
+
     rand_array_of_models(:events_git_repository_add).each do |e|
       e.reload
       ex = {
