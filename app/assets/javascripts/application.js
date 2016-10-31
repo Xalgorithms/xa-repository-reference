@@ -18,4 +18,5 @@
 //= require knockout
 //= require js-routes
 //= require turbolinks
+//= require ./globals
 //= require_tree .

@@ -59,6 +59,7 @@ Rails.application.routes.draw do
   resources :registries, only: [:index]
   resources :rules, only: [:index]
   resources :namespaces, only: [:index]
+  resources :git_repositories, only: [:index]
 
   namespace :api do
     namespace :v1 do

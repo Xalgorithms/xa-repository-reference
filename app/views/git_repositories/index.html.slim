@@ -1,0 +1,10 @@
+.row
+  .col-md-12
+    button.btn type="button" data-toggle="modal" data-target="#modal-add-repo"= t('labels.add', scope: 'shared')
+
+.row#collection
+  .col-md-12
+
+= content_for(:javascript) do
+  javascript:
+
