@@ -28,8 +28,7 @@ class EventService
 
     if !e.namespace_id && e.namespace_name
       Rails.logger.debug("> creating namespace (name=#{e.namespace_name})")
-      ns = Namespace.where(name: e.namespace_name).first
-      ns = Namespace.create(name: e.namespace_name, public_id: UUID.generate) if !ns
+      ns = Namespace.find_or_create_by(name: e.namespace_name)
     else
       Rails.logger.debug("> using existing namespace (id=#{e.namespace_id})")
       ns = Namespace.where(public_id: e.namespace_id).first
