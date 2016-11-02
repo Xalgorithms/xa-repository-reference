@@ -44,7 +44,6 @@ describe RuleService do
     end
   end
 
-
   it 'should add versions to an existing rule' do
     rand_array_of_words.each do |name|
       nsm = create(:namespace)
@@ -88,6 +87,31 @@ describe RuleService do
       expect(rm.versions.last.src).to eql(src)
       expect(rm.versions.last.code).to_not be_nil
       expect(rm.versions.last.code).to eql(ver) if ver
+    end
+  end
+
+  it 'should do nothing if the version exists' do
+    rand_array_of_words.each do |name|
+      nsm = create(:namespace)
+      src = Faker::Lorem.sentence
+      rt = rand_one(Rule::TYPES)
+
+      rm = create(:rule, namespace: nsm, name: name, rule_type: rt)
+      rand_array_of_models(:version, rule: rm)
+
+      rm.reload
+      ver = rm.versions.last.code
+      n_versions = rm.versions.count
+      
+      expect(ParseService).to_not receive(:parse_versions)
+      expect(RegistrationService).to_not receive(:register_all)
+      
+      expect(Rule.where(namespace: nsm, name: name, rule_type: rt).count).to eql(1)
+
+      rm.reload
+      
+      expect(rm).to_not be_nil
+      expect(rm.versions.count).to eql(n_versions)
     end
   end
 end
