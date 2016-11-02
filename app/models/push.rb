@@ -1,6 +1,6 @@
 class Push
   include Mongoid::Document
 
-  field :name, type: String
+  belongs_to  :git_repository
   embeds_many :commits
 end

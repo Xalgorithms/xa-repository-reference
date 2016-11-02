@@ -5,7 +5,10 @@ describe Api::V1::PushesController, type: :controller do
   include ResponseJson
 
   after(:all) do
-    Push.destroy_all
+    [
+      Push,
+      GitRepository,
+    ].each(&:destroy_all)
   end
 
   it 'should accept pushes in github format' do
@@ -26,13 +29,20 @@ describe Api::V1::PushesController, type: :controller do
     end.each do |payload|
       n_pushes = Push.all.count
 
+      git_service_push_id = nil
+      expect(GitService).to receive(:update) do |id|
+        git_service_push_id = id
+      end
+
+      grm = create(:git_repository, name: payload['repository']['name'])
       post(:create, payload)
 
       expect(response).to be_success
       expect(Push.all.count).to eql(n_pushes + 1)
 
       pm = Push.last
-      expect(pm.name).to eql(payload['repository']['name'])
+      expect(git_service_push_id).to eql(pm._id.to_s)
+      expect(pm.git_repository).to eql(grm)
       
       expect(pm.commits.count).to eql(payload['commits'].length)
       pm.commits.each_with_index do |cm, i|

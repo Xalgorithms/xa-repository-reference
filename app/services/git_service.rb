@@ -17,6 +17,9 @@ class GitService
     end
   end
 
+  def self.update(push_id)
+  end
+
   private
 
   def self.scan_all(repo)
