@@ -3,7 +3,7 @@ class Version
 
   field :content, type: Hash
   field :src,     type: String
-  field :code,    type: Integer
+  field :code,    type: String
 
   embedded_in :rule
 end
