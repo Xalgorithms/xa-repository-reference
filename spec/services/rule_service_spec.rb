@@ -20,10 +20,23 @@ describe RuleService do
         ver = Faker::Number.number(6)
       end
 
+      parse_rm_id = nil
+      expect(ParseService).to receive(:parse_versions) do |prt, id|
+        expect(prt).to eql(rt)
+        parse_rm_id = id
+      end
+
+      reg_rm_id = nil
+      expect(RegistrationService).to receive(:register_all) do |id|
+        reg_rm_id = id
+      end
+      
       RuleService.create(nsm, name, src, rt, ver)
 
       rm = Rule.where(namespace: nsm, name: name, rule_type: rt).first
       expect(rm).to_not be_nil
+      expect(parse_rm_id).to eql(rm._id.to_s)
+      expect(reg_rm_id).to eql(rm._id.to_s)
       expect(rm.versions.count).to eql(1)
       expect(rm.versions.last.src).to eql(src)
       expect(rm.versions.last.code).to_not be_nil
@@ -49,8 +62,19 @@ describe RuleService do
       rm.reload
       n_versions = rm.versions.count
       
-      RuleService.create(nsm, name, src, rt, ver) do |rule_id|
-        expect(rule_id).to eql(rm._id.to_s)
+      parse_rm_id = nil
+      expect(ParseService).to receive(:parse_versions) do |prt, id|
+        expect(prt).to eql(rt)
+        parse_rm_id = id
+      end
+
+      reg_rm_id = nil
+      expect(RegistrationService).to receive(:register_all) do |id|
+        reg_rm_id = id
+      end
+      
+      RuleService.create(nsm, name, src, rt, ver) do |id|
+        expect(id).to eql(rm._id.to_s)
       end
 
       expect(Rule.where(namespace: nsm, name: name, rule_type: rt).count).to eql(1)
@@ -58,6 +82,8 @@ describe RuleService do
       rm.reload
       
       expect(rm).to_not be_nil
+      expect(parse_rm_id).to eql(rm._id.to_s)
+      expect(reg_rm_id).to eql(rm._id.to_s)
       expect(rm.versions.count).to eql(n_versions + 1)
       expect(rm.versions.last.src).to eql(src)
       expect(rm.versions.last.code).to_not be_nil

@@ -35,13 +35,6 @@ class EventService
     end
 
     RuleService.create(ns, e.name, e.src, e.rule_type) do |rule_id|
-      Rails.logger.debug("> triggering parse of new version")
-      ParseService.parse_versions(e.rule_type.to_sym, rule_id)
-
-      # NOTE: if services become async, this should be attached to the completion of the async
-      # parse processing
-      RegistrationService.register_all(rule_id)
-
       Rails.logger.debug("> rules (count=#{Rule.all.count})")
       e.rule = Rule.find(rule_id)
       e.save
