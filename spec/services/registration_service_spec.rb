@@ -28,8 +28,10 @@ describe RegistrationService do
       end
     end
 
-    RegistrationService.register_all(rm)
-
+    RegistrationService.register_all(rm._id.to_s)
+    
+    rm.reload
+    
     expect(rm.registrations.count).to eql(rgms.count * rm.versions.count)
     public_ids.each do |ver, public_id|
       rgms.each do |rgm|

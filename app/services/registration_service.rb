@@ -1,6 +1,7 @@
 class RegistrationService
-  def self.register_all(rm)
-    Registry.all.each { |rgm| register_all_at(rgm, rm) }
+  def self.register_all(rule_id)
+    rm = Rule.find(rule_id)
+    Registry.all.each { |rgm| register_all_at(rgm, rm) } if rm
   end
 
   private
