@@ -57,15 +57,7 @@ class EventService
 
     # NOTE: if services become async, this should be attached to the completion of the async
     # parse processing
-    ver = rule.versions.first.code
-    Registry.all.each do |registry|
-      Rails.logger.debug("> sending new version to registry (url=#{registry.url})")
-      cl = RegistryClient.new(registry.url)      
-      cl.create_rule(rule.namespace.name, rule.name, ver, registry.registered_public_id) do |public_id|
-        Rails.logger.debug("> creating registration (registry=#{registry.public_id}; rule=#{public_id})")
-        Registration.create(registry_public_id: registry.public_id, rule_public_id: public_id, version: ver, rule: rule)
-      end
-    end
+    RegistrationService.register_all(rule)
 
     Rails.logger.debug("> rules (count=#{Rule.all.count})")
     e.rule = rule
