@@ -34,33 +34,18 @@ class EventService
       ns = Namespace.where(public_id: e.namespace_id).first
     end
 
-    Rails.logger.debug("> locating existing rule (name=#{e.name}; namespace=#{ns.id})")
-    rule = Rule.where(name: e.name, namespace: ns).first
-    if !rule
-      Rails.logger.debug("> creating rule (name=#{e.name}; type=#{e.rule_type})")
-      rule = Rule.create(name: e.name, namespace: ns, public_id: UUID.generate, rule_type: e.rule_type)
-      Rails.logger.debug("created (total=#{Rule.all.count})")
+    RuleService.create(ns, e.name, e.src, e.rule_type) do |rule_id|
+      Rails.logger.debug("> triggering parse of new version")
+      ParseService.parse_versions(e.rule_type.to_sym, rule_id)
+
+      # NOTE: if services become async, this should be attached to the completion of the async
+      # parse processing
+      RegistrationService.register_all(rule_id)
+
+      Rails.logger.debug("> rules (count=#{Rule.all.count})")
+      e.rule = Rule.find(rule_id)
+      e.save
     end
-
-    Rails.logger.debug("> rules (count=#{Rule.all.count})")
-
-    Rails.logger.debug("> creating new version")
-    Version.create(src: e.src, rule: rule, code: DateTime.now.to_s(:number))
-
-    Rails.logger.debug("> rules (count=#{Rule.all.count})")
-
-    Rails.logger.debug("> triggering parse of new version")
-    ParseService.parse_versions(e.rule_type.to_sym, rule._id.to_s)
-
-    Rails.logger.debug("> rules (count=#{Rule.all.count})")
-
-    # NOTE: if services become async, this should be attached to the completion of the async
-    # parse processing
-    RegistrationService.register_all(rule)
-
-    Rails.logger.debug("> rules (count=#{Rule.all.count})")
-    e.rule = rule
-    e.save
   end
 
   def self.rule_destroy(event_id)
