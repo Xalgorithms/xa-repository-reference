@@ -1,10 +1,7 @@
-class Rule
-  include Mongoid::Document
-
+class Rule < PublicDocument
   TYPES = [:table, :xalgo]
   
   field :name,      type: String
-  field :public_id, type: String
   field :rule_type, type: String
 
   belongs_to :namespace

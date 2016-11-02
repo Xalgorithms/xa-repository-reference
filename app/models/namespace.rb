@@ -1,6 +1,3 @@
-class Namespace
-  include Mongoid::Document
-
-  field :public_id, type: String
-  field :name,      type: String
+class Namespace < PublicDocument
+  field :name, type: String
 end
