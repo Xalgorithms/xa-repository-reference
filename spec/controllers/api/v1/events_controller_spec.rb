@@ -4,10 +4,6 @@ describe Api::V1::EventsController, type: :controller do
   include Randomness
   include ResponseJson
 
-  before(:all) do
-    Events::GitRepositoryAdd.destroy_all
-  end
-  
   after(:all) do
     Events::GitRepositoryAdd.destroy_all
     Events::GitRepositoryDestroy.destroy_all

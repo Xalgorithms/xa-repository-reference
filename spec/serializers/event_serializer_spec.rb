@@ -2,8 +2,11 @@ require 'rails_helper'
 
 describe EventSerializer do
   after(:each) do
-    GitRepository.destroy_all
-    Events::GitRepositoryAdd.destroy_all
+    [
+      GitRepository,
+      Events::GitRepositoryAdd,
+      Events::GitRepositoryDestroy,
+    ].each(&:destroy_all)
   end
   
   it 'should serialize GitRepositoryAdd' do
