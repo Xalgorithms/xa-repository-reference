@@ -6,6 +6,11 @@ rvm:
 services:
   - docker
 
+addons:
+  apt:
+    packages:
+      - cmake
+  
 before_install:
   - "./start_containers.sh"
 
