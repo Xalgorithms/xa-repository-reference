@@ -8,6 +8,7 @@ WORKDIR /app
 COPY Gemfile /app
 COPY Gemfile.lock /app
 
+RUN apt-get update && apt-get install -y cmake
 RUN bundle install --without test development
 
 COPY . /app
