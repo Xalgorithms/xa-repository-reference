@@ -12,9 +12,9 @@ class RegistryClient
     end
   end
 
-  def create_rule(ns, name, version, our_public_id)
+  def create_rule(ns, name, version, public_id, our_public_id)
     puts "> POST /api/v1/repositories/#{our_public_id}/rules"
-    resp = @conn.post("/api/v1/repositories/#{our_public_id}/rules", rule: { ns: ns, name: name, version: version })
+    resp = @conn.post("/api/v1/repositories/#{our_public_id}/rules", rule: { id: public_id, ns: ns, name: name, version: version })
     puts "< #{resp.status}"
     if resp.success?
       yield(resp.body.fetch('id'))

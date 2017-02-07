@@ -5,7 +5,7 @@ module Api
         rule = Rule.elem_match(registrations: { rule_public_id: params[:rule_id] }).first
         if rule
           Rails.logger.info("# located a rule (public_id=#{rule.public_id})")
-          @ver = rule.versions.select { |v| v.code == params[:id].to_i }.first
+          @ver = rule.versions.select { |v| v.code.to_i == params[:id].to_i }.first
           if @ver
             Rails.logger.info("# located the correct version")
             render(json: @ver.content)

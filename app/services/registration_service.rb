@@ -13,8 +13,8 @@ class RegistrationService
   end
 
   def self.register_one_at(cl, rgm, rm, vm)
-    cl.create_rule(rm.namespace.name, rm.name, vm.code, rgm.registered_public_id) do |public_id|
-      Rails.logger.debug("> creating registration (registry=#{rgm.public_id}; rule=#{public_id})")
+    cl.create_rule(rm.namespace.name, rm.name, vm.code, rm.public_id, rgm.registered_public_id) do |public_id|
+      Rails.logger.debug("> creating registration (registry=#{rgm.public_id}; rule=(public_id=#{public_id}; name=#{rm.name}))")
       Registration.create(registry_public_id: rgm.public_id, rule_public_id: public_id, version: vm.code, rule: rm)
     end
   end

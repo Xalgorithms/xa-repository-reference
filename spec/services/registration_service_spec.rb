@@ -24,7 +24,7 @@ describe RegistrationService do
       expect(RegistryClient).to receive(:new).with(rgm.url).and_return(cl)
       
       rm.versions.each do |vm|
-        expect(cl).to receive(:create_rule).with(rm.namespace.name, rm.name, vm.code, rgm.registered_public_id).and_yield(public_ids[vm.code])
+        expect(cl).to receive(:create_rule).with(rm.namespace.name, rm.name, vm.code, rm.public_id, rgm.registered_public_id).and_yield(public_ids[vm.code])
       end
     end
 
