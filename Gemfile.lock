@@ -1,8 +1,8 @@
 GIT
   remote: https://github.com/Xalgorithms/xa-rules.git
-  revision: 527d61e593db1aaf4cec2cca10b0b77f1b993c40
+  revision: a59c69eeebe3e157aa19cd5045c3464d9df1bafa
   specs:
-    xa-rules (0.0.5)
+    xa-rules (0.0.6)
       faraday
       faraday_middleware
       parslet
@@ -89,7 +89,7 @@ GEM
       i18n (~> 0.5)
     faraday (0.11.0)
       multipart-post (>= 1.2, < 3)
-    faraday_middleware (0.11.0)
+    faraday_middleware (0.11.0.1)
       faraday (>= 0.7.4, < 1.0)
     font-awesome-rails (4.7.0.1)
       railties (>= 3.2, < 5.1)
