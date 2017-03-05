@@ -1,45 +1,25 @@
-.row
-  .col-md-12
-    button.btn type="button" data-toggle="modal" data-target="#modal-add-git-repository"= t('labels.add', scope: 'shared')
+#page
+  .control.is-grouped
+    .control
+      a.button data-bind="click: add"= t('labels.add', scope: 'shared')
 
-.row#collection
-  .col-md-12
-    table.table.table-condensed.table-bordered data-bind="visible: any"
-      thead
-        tr
-          th= t('.headings.name')
-      tbody data-bind="foreach: git_repositories"
-        tr
-          td
-            a rel="nofollow" data-bind="click: $parent.destroy_item, attr: { href: $parent.format_url($data) }"
-              = fa_icon('remove')
-            a data-bind="text: name, attr: { href: url }"
-            
-.modal.fade id="modal-add-git-repository" tabIndex="-1" role="dialog"
-  .modal-dialog role="document"
-    = form_for(Events::GitRepositoryAdd.new, url: api_v1_events_path, remote: true) do |f|
-      .modal-content
-        .modal-header
-          button.close type="button" data-dismiss="modal"= fa_icon('close')
-          h4.modal-title= t('.labels.modal_add')
-        .modal-body
-          .form-group
-            = f.label(:name, t('.labels.name'))
-            = f.text_field(:name, class: 'form-control')
-          .form-group
-            = f.label(:url, t('.labels.url'))
-            = f.text_field(:url, class: 'form-control')
+  .columns
+    .column.is-12
+      table.table.is-bordered
+        thead
+          tr
+            th= t('.headings.name')
+        tbody
+          <!-- ko foreach: git_repositories -->
+          tr
+            td
+              a rel="nofollow" data-bind="click: destroy"
+                = fa_icon('remove')
+              a data-bind="text: name, attr: { href: url }"
+          <!-- /ko -->
 
-        .modal-footer
-          button.btn.btn-default type="button" data-dismiss="modal"
-            = fa_icon('close')
-            span= t('labels.close', scope: 'shared')
-          button.btn.btn-primary type="submit"
-            = fa_icon('check')
-            span= t('labels.add', scope: 'shared')
+  = render('modal_add')
 
 = content_for(:javascript) do
   javascript:
-    var vm = {
-      git_repositories: ko.observableArray(#{raw @repositories.to_json})
-    };
+    var git_repositories = #{raw MultiJson.encode(@repositories)};

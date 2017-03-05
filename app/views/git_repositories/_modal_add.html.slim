@@ -1,0 +1,25 @@
+<!-- ko with: modals.add -->
+.modal data-bind="css: { 'is-active': active }"
+  .modal-background
+  .modal-card
+    header.modal-card-head
+      p.modal-card-title= t('titles.add', scope: 'shared')
+      a data-bind="click: deactivate"
+        = fa_icon('close')
+    section.modal-card-body
+      label.label for="name" Name
+      p.control
+        input.input#url type="text" data-bind="value: name"
+
+      label.label for="name" URL
+      p.control
+        input.input#url type="text" data-bind="value: url"
+
+    footer.modal-card-foot
+      a.button.is-default data-bind="click: deactivate"
+        = fa_icon('close')
+        span= t('labels.close', scope: 'shared')
+      a.button.is-primary data-bind="click: send"
+        = fa_icon('check')
+        span= t('labels.add', scope: 'shared')
+<!-- /ko -->
