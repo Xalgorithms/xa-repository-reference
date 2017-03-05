@@ -1,45 +1,20 @@
-function only_on_page(name, fn) {
-  if ($('body').data('page') === name) {
-    fn();
+// TODO: cloned from xa-lichen; extract a lib
+var pages = { };
+
+function define_on_page(name, action, init_fn) {
+  var k = name + '_' + action;
+  pages = _.set(pages, k, init_fn);
+}
+
+function init_on_page(name, action) {
+  console.log('initializing: ' + name + '/' + action);
+  var k = name + '_' + action;
+  var init_fn = _.get(pages, k, null);
+  if (init_fn) {
+    console.log('init: ' + name + '/' + action);
+    init_fn();
+  } else {
+    console.log('missing: ' + name + '/' + action);
   }
 }
 
-function init_on_page(name, fn) {
-  $(document).on('turbolinks:load', function () {
-    only_on_page(name, function() {
-      console.log('init: ' + name);
-      fn();
-    });
-  });
-}
-
-function manage_collection(vm, opts) {
-  $(opts.actions.add).on('ajax:success', function (e, o) {
-    $(opts.modals.add).modal('toggle');
-    $.getJSON(o.url, function (e) {
-      $.getJSON(e.url, function (co) {
-        vm[opts.collection].push(co);
-      });
-    });
-  });
-
-  vm.any = ko.computed(function () {
-    return vm[opts.collection]().length > 0;
-  });
-
-  vm.format_url = function (o) {
-    return opts.routes.item({ id: o.id });
-  };
-
-  vm.destroy_item = function (o) {
-    $.post(Routes.api_v1_events_path(), opts.builders.destroy(o), function (resp) {
-      $.getJSON(resp.url, function (e) {
-        vm[opts.collection].remove(function (it) {
-          return it.id == e.id;
-        });
-      });
-    });
-  };
-
-  ko.applyBindings(vm, document.getElementById('collection'));
-}
