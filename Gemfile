@@ -22,8 +22,8 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails'
 
 # style
-gem 'sass-rails'
-gem 'bootstrap-sass', '~> 3.3.6'
+gem "bulma-rails", "~> 0.2.3"
+gem 'sass-rails', '>= 3.2'
 gem 'font-awesome-rails'
 
 # api

@@ -1,7 +1,7 @@
 doctype html
 html
   head
-    title xa-repository-reference
+    title Repository
     = stylesheet_link_tag "application", media: 'all', 'data-turbolinks-track' => true
     = yield :stylesheets
 
@@ -10,16 +10,15 @@ html
 
     = csrf_meta_tags
 
-  body data-page=controller.controller_name
-    .container
-      nav.navbar.navbar-default.navbar-fixed-top
-        .container-fluid
-          ul.nav.navbar-nav
-            - global_sections.each do |name|
-              li class="nav-item #{controller.controller_name.eql?(name.to_s) ? 'active' : ''}"
-                = link_to(t(".#{name}"), name, class: 'nav-link')
+  body data-page=controller_name data-action=action_name
+    nav.nav.has-shadow
+      div.container
+        .nav-left
+          - global_sections.each do |name|
+            = link_to(t(".#{name}"), name, class: "nav-item is-tab #{controller_name.eql?(name.to_s) ? 'is-active' : ''}")
 
-    .container
-      = yield
+    section.section
+      .container.is-fluid
+        = yield
 
     = yield(:javascript)
