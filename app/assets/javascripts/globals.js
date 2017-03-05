@@ -18,3 +18,10 @@ function init_on_page(name, action) {
   }
 }
 
+function send_event(ev, fn) {
+  $.post(Routes.api_v1_events_path(), ev, function (resp) {
+    $.getJSON(resp.url, function (eo) {
+      fn(eo);
+    });
+  });
+}

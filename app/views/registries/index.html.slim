@@ -1,57 +1,31 @@
-.row
-  .col-md-12
-    button.btn type="button" data-toggle="modal" data-target="#modal-add-registry"= t('labels.add', scope: 'shared')
+#page
+  .control.is-grouped
+    .control
+      a.button data-bind="click: add"= t('labels.add', scope: 'shared')
 
-.row#collection
-  .col-md-12
-    table.table.table-condensed.table-bordered data-bind="visible: any"
-      thead
-        tr
-          th= t('.headings.url')
-          th= t('.headings.our_url')
-          th= t('.headings.our_id')
-      tbody data-bind="foreach: registries"
-        tr
-          td
-            a rel="nofollow" data-bind="click: $parent.destroy_item, attr: { href: $parent.format_url($data) }"
-              = fa_icon('remove')
-            span data-bind="text: url"
-          td
-            span data-bind="text: our_url"
-          td
-            span(data-bind="visible: !registered_public_id")= fa_icon('gear spin')
-            span data-bind="text: $parent.id_or_status($data)"
-
-.modal.fade id="modal-add-registry" tabIndex="-1" role="dialog"
-  .modal-dialog role="document"
-    = form_for(Events::RegistryAdd.new, url: api_v1_events_path, remote: true) do |f|
-      .modal-content
-        .modal-header
-          button.close type="button" data-dismiss="modal"= fa_icon('close')
-          h4.modal-title= t('.labels.modal_add')
-        .modal-body
-          .form-group
-            = f.label(:url, t('.labels.url'))
-            = f.text_field(:url, class: 'form-control')
-          .form-group
-            = f.label(:our_url, t('.labels.our_url'))
-            = f.text_field(:our_url, class: 'form-control')
-
-        .modal-footer
-          button.btn.btn-default type="button" data-dismiss="modal"
-            = fa_icon('close')
-            span= t('labels.close', scope: 'shared')
-          button.btn.btn-primary type="submit"
-            = fa_icon('check')
-            span= t('labels.add', scope: 'shared')
+  .columns
+    .column.is-12
+      table.table.is-bordered
+        thead
+          tr
+            th= t('.headings.url')
+            th= t('.headings.our_url')
+            th= t('.headings.our_id')
+        tbody
+          <!-- ko foreach: registries -->
+          tr
+            td
+              a rel="nofollow" data-bind="click: destroy"
+                = fa_icon('remove')
+              span data-bind="text: url"
+            td
+              span data-bind="text: our_url"
+            td
+              span data-bind="text: id"
+          <!-- /ko -->
+  = render('modal_add')
 
 = content_for(:javascript) do
   javascript:
-    var vm = {
-      registries: ko.observableArray(#{raw @registries.to_json})
-    };
-
-    var t = {
-      registering: "#{raw t('.labels.registering')}"
-    };
+    var registries = #{raw MultiJson.encode(@registries)};
 
