@@ -1,0 +1,35 @@
+<!-- ko with: modals.add -->
+.modal data-bind="css: { 'is-active': active }"
+  .modal-background
+  .modal-card
+    header.modal-card-head
+      p.modal-card-title= t('titles.add', scope: 'shared')
+      a data-bind="click: deactivate"
+        = fa_icon('close')
+    section.modal-card-body
+      label.label for="name" Name
+      p.control
+        input.input#url type="text" data-bind="value: name"
+
+      label.label for="rule_type" Type
+      p.control
+        span.select
+          select#rule_type data-bind="options: rule_types, optionsText: 'label', optionsValue: 'key', value: rule_type"
+
+      label.label for="namespace" Namespace
+      p.control
+        span.select
+          select#namespace data-bind="options: namespaces, optionsText: 'name', optionsValue: 'id', value: namespace_id"
+
+      label.label for="src" Source
+      p.control
+        textarea.textarea#src data-bind="value: src"
+
+    footer.modal-card-foot
+      a.button.is-default data-bind="click: deactivate"
+        = fa_icon('close')
+        span= t('labels.close', scope: 'shared')
+      a.button.is-primary data-bind="click: send"
+        = fa_icon('check')
+        span= t('labels.add', scope: 'shared')
+<!-- /ko -->

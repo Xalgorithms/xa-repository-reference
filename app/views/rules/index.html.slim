@@ -1,66 +1,36 @@
-.row
-  .col-md-12
-    button.btn.pull-right type="button" data-toggle="modal" data-target="#modal-add-rule"= t('labels.add', scope: 'shared')
+#page
+  .control.is-grouped
+    .control
+      a.button data-bind="click: add"= t('labels.add', scope: 'shared')
 
-.row#collection
-  .container
-    .row
-      .col-md-8
-        table.table data-bind="visible: any"
-          thead
-            tr
-              th= t('.headings.name')
-              th= t('.headings.namespace')
-              th= t('.headings.type')
-              th= t('.headings.versions')
-          tbody data-bind="foreach: rules"
-            tr
-              td
-                a rel="nofollow" data-bind="click: $parent.destroy_item, attr: { href: $parent.format_url($data) }"
-                  = fa_icon('remove')
-                a data-bind="text: name, attr: { href: $parent.format_url($data) }, click: $parent.show_rule_details"
-              td data-bind="text: namespace.name"
-              td data-bind="text: type"
-              td
-                ul.list-inline data-bind="foreach: versions"
-                  li data-bind="text: $data"
+  .columns
+    .column.is-12
+      table.table.is-bordered
+        thead
+          tr
+            th= t('.headings.name')
+            th= t('.headings.namespace')
+            th= t('.headings.type')
+            th= t('.headings.versions')
+        tbody
+          <!-- ko foreach: rules -->
+          tr
+            td
+              a rel="nofollow" data-bind="click: destroy"
+                = fa_icon('remove')
+              span data-bind="text: name"
+            td
+              span data-bind="text: namespace.name"
+            td
+              span data-bind="text: type"
+            td
+              span data-bind="text: version_list"
+          <!-- /ko -->
 
-.modal.fade id="modal-add-rule" tabIndex="-1" role="dialog"
-  .modal-dialog role="document"
-    = form_for(Events::RuleAdd.new, url: api_v1_events_path, remote: true) do |f|
-      .modal-content
-        .modal-header
-          button.close type="button" data-dismiss="modal"= fa_icon('close')
-          h4.modal-title= t('.labels.modal_add')
-        .modal-body
-          .form-group
-            = f.label(:name, t('.labels.name'))
-            = f.text_field(:name, class: 'form-control')
-          .form-group
-            = f.label(:src, t('.labels.src'))
-            = f.text_area(:src, class: 'form-control')
-          .form-group
-            = f.label(:namespace_id, t('.labels.namespace'))
-            = f.select(:namespace_id, [], {}, { 'class' => 'form-control', 'data-bind' => "foreach: namespaces" })
-              option data-bind="attr: { value: id }, text: name"
-          .form-group
-            = f.label(:rule_type, t('.labels.rule_type'))
-            = f.select(:rule_type, [], {}, { 'class' => 'form-control', 'data-bind' => "foreach: rule_types" })
-              option data-bind="attr: { value: key }, text: label"
+  = render('modal_add')
 
-        .modal-footer
-          button.btn.btn-default type="button" data-dismiss="modal"
-            = fa_icon('close')
-            span= t('labels.close', scope: 'shared')
-          button.btn.btn-primary type="submit"
-            = fa_icon('check')
-            span= t('.add', scope: 'shared')
-    
 = content_for(:javascript) do
   javascript:
-    var vm = {
-      rules: ko.observableArray(#{raw @rules.to_json})
-    };
-
-    var namespaces = #{raw @namespaces.to_json};
-    var rule_types = #{raw @rule_types.to_json};
+    var rules = #{raw MultiJson.encode(@rules)};
+    var namespaces = #{raw MultiJson.encode(@namespaces) };
+    var rule_types = #{raw MultiJson.encode(@rule_types) };

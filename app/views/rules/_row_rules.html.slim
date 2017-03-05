@@ -1,8 +1,0 @@
-.col.s3
-  .card id="card-#{rule.id}"
-    .card-content
-      div= t('.name', url: rule.name)
-      div= t('.version', version: format_date_as_version(rule.created_at))
-    .card-action
-      = link_to([:api, :v1, rule], remote: true, method: :delete, class: 'btn local-card-btn action-delete') do
-        i.material-icons delete
