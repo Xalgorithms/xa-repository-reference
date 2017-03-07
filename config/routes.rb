@@ -57,7 +57,7 @@ Rails.application.routes.draw do
   root 'registries#index'
 
   resources :registries, only: [:index]
-  resources :rules, only: [:index]
+  resources :rules, only: [:index, :show]
   resources :namespaces, only: [:index]
   resources :git_repositories, only: [:index]
 

@@ -1,0 +1,5 @@
+.columns data-bind="if: type === 'table'"
+  .column.is-12
+    table.table.is-bordered data-bind="foreach: active_content.rows"
+      tr
+        td data-bind="text: $data"

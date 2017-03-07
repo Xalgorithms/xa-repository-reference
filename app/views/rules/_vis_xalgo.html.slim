@@ -1,0 +1,5 @@
+.columns data-bind="if: type === 'xalgo'"
+  .column.is-4
+    ul data-bind="foreach: active_content().content.actions"
+      li data-bind="text: format_xalgo($data)"
+
