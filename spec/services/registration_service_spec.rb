@@ -35,7 +35,7 @@ describe RegistrationService do
     expect(rm.registrations.count).to eql(rgms.count * rm.versions.count)
     public_ids.each do |ver, public_id|
       rgms.each do |rgm|
-        rtm = rm.registrations.where(registry_public_id: rgm.public_id, rule_public_id: public_id, version: ver).first
+        rtm = rm.registrations.where(registry_public_id: rgm.public_id, version: ver).first
         expect(rtm).to_not be_nil
         expect(rtm.rule).to eql(rm)
       end
