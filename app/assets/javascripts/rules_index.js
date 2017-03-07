@@ -27,7 +27,8 @@
 	},
         version_list: ko.computed(function () {
 	  return _.join(o.versions, ', ');
-	})
+	}),
+        url: Routes.rule_path(o.id)
       };
 
       return _.extend({}, o, extras);

@@ -18,7 +18,7 @@
             td
               a rel="nofollow" data-bind="click: destroy"
                 = fa_icon('remove')
-              span data-bind="text: name"
+              a data-bind="text: name, attr: { href: url }"
             td
               span data-bind="text: namespace.name"
             td
