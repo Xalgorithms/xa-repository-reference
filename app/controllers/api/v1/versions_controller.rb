@@ -1,6 +1,10 @@
+require 'xa/rules/parse'
+
 module Api
   module V1
     class VersionsController < ActionController::Base
+      include XA::Rules::Parse
+
       def show
         rule = Rule.where(public_id: params[:rule_id]).first
         if rule
@@ -8,7 +12,9 @@ module Api
           @ver = rule.versions.select { |v| v.code.to_i == params[:id].to_i }.first
           if @ver
             Rails.logger.info("# located the correct version")
-            render(json: { content: @ver.content })
+            o = { content: @ver.content }
+            o[:unparsed] = unparse(@ver.content['actions']) if rule.rule_type == 'xalgo'
+            render(json: o)
           else
             Rails.logger.error("! failed to locate the version (version=#{params[:id]})")
             render(nothing: true, status: :not_found)
