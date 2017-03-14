@@ -88,7 +88,8 @@ class EventService
     e = Events::TrialAdd.where(id: event_id).first
     rm = Rule.where(public_id: e.rule_id).first
     if rm
-      tm = Trial.create(label: e.label, rule: rm)
+      label = Rails.env.test? ? Faker::Number.hexadecimal(10) : Time.now.utc.to_s
+      tm = Trial.create(label: label, rule: rm)
       e.trial = tm
       e.save
 

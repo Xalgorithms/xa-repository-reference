@@ -37,7 +37,7 @@ module Api
           },
           'events_trial_add' => {
             klass: Events::TrialAdd,
-            args: [:label, :rule_id],
+            args: [:rule_id],
           },
         }
       
