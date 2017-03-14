@@ -1,4 +1,7 @@
 <!-- ko if: is_xalgo -->
+.control data-bind="if: any_trials"
+  span.select
+    select#trial data-bind="options: trials, optionsText: 'label', optionsValue: 'id', value: active_trial"
 .tabs
   ul
     li.is-active

@@ -28,10 +28,6 @@
       });
     };
 
-    page_vm.run_trial = function () {
-      console.log('TBD');
-    };
-    
     // get all the versions
     _.each(rule.versions, function (ver) {
       $.getJSON(Routes.api_v1_rule_version_path(rule.id, ver), function (o) {
