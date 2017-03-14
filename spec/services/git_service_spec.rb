@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe EventService do
+describe GitService do
   after(:each) do
     GitRepository.destroy_all
     Events::GitRepositoryAdd.destroy_all
