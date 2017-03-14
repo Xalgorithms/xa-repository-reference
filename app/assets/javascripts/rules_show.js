@@ -6,9 +6,14 @@
       active_version: ko.observable(_.head(rule.versions)),
       versions_loaded: ko.observable(false),
       is_xalgo: ko.observable('xalgo' === rule.type),
-      is_table: ko.observable('table' === rule.type)
+      is_table: ko.observable('table' === rule.type),
+      trials: ko.observableArray(rule.trials)
     });
 
+    page_vm.any_trials = ko.computed(function () {
+      return _.size(page_vm.trials()) > 0;
+    });
+    
     // get all the versions
     _.each(rule.versions, function (ver) {
       $.getJSON(Routes.api_v1_rule_version_path(rule.id, ver), function (o) {
