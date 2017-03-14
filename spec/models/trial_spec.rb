@@ -1,22 +1,22 @@
 require 'rails_helper'
 require_relative './public_model_checks'
 
-describe Rule, type: :model do
+describe Trial, type: :model do
   include PublicModelChecks
   
   after(:all) do
     models = [
-      Rule,
       Trial,
+      Rule,
     ]
     destroy_many(models)
   end
 
   it 'should have a public id' do
-    verify_public_id(:rule)
+    verify_public_id(:trial)
   end
 
-  it 'should have many trials' do
-    verify_has_many(:rule, :trial)
+  it 'should associate with a rule' do
+    verify_belongs_to(:trial, :rule)
   end
 end

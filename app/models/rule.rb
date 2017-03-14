@@ -7,4 +7,5 @@ class Rule < PublicDocument
   belongs_to :namespace
   embeds_many :versions
   embeds_many :registrations
+  has_many    :trials
 end
