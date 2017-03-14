@@ -1,12 +1,11 @@
 #page data-bind="if: versions_loaded"
   .columns
-    .column.is-12
-      .control.is-grouped
-        .control
-          span.select
-            select#version data-bind="options: versions, value: active_version"
-  = render('vis_xalgo')
-  = render('vis_table')
+    .column.is-6
+      = render('controls')
+      = render('vis_xalgo')
+      = render('vis_table')
+    .column.is-6
+      = render('console_xalgo')
 
 = content_for(:javascript) do
   javascript:

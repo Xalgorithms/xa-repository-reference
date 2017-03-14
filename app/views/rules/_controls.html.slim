@@ -1,0 +1,14 @@
+.control.is-grouped
+  .control
+    span.select
+      select#version data-bind="options: versions, value: active_version"
+  <!-- ko if: is_xalgo -->
+  .control
+    span.select
+      select
+  .control
+    a.button
+      span.icon.is-small
+        = fa_icon('play')
+      span Run
+  <!-- /ko -->

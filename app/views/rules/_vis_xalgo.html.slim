@@ -1,5 +1,6 @@
-.columns data-bind="if: type === 'xalgo'"
-  .column.is-6
-    ul data-bind="foreach: active_content().unparsed"
-      li data-bind="text: $data"
+<!-- ko if: is_xalgo -->
+pre
+  code data-bind="foreach: active_content().unparsed"
+    div data-bind="text: $data"
+<!-- /ko -->
 

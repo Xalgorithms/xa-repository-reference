@@ -4,7 +4,9 @@
 
     var page_vm = _.extend({}, rule, {
       active_version: ko.observable(_.head(rule.versions)),
-      versions_loaded: ko.observable(false)
+      versions_loaded: ko.observable(false),
+      is_xalgo: ko.observable('xalgo' === rule.type),
+      is_table: ko.observable('table' === rule.type)
     });
 
     // get all the versions
