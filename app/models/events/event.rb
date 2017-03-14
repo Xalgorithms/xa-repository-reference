@@ -1,8 +1,10 @@
 module Events
-  class Event
+  class Event < PublicDocument
     include Mongoid::Document
     include Mongoid::Timestamps
 
-    field :public_id, type: String
+    after_create do |e|
+      EventService.send(e.class.name.demodulize.underscore, e._id.to_s)
+    end
   end
 end
