@@ -29,4 +29,10 @@ module PublicModelChecks
       end
     end
   end
+
+  def verify_fields_exist(n, fields)
+    rand_array_of_models(n).each do |m|
+      fields.each { |n| expect(m.send(n)).to_not be_nil }
+    end
+  end
 end

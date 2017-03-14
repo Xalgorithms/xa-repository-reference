@@ -12,6 +12,10 @@ describe Trial, type: :model do
     destroy_many(models)
   end
 
+  it 'has fields' do
+    verify_fields_exist(:trial, [:label])
+  end
+  
   it 'should have a public id' do
     verify_public_id(:trial)
   end
