@@ -13,7 +13,7 @@ module Api
           if @ver
             Rails.logger.info("# located the correct version")
             o = { content: @ver.content }
-            o[:unparsed] = unparse(@ver.content['actions']) if rule.rule_type == 'xalgo'
+            o[:unparsed] = unparse(@ver.content['actions']) if rule.rule_type == 'xalgo' if @ver.content.any?
             render(json: o)
           else
             Rails.logger.error("! failed to locate the version (version=#{params[:id]})")
