@@ -35,6 +35,10 @@ module Api
             klass: Events::GitRepositoryDestroy,
             args: [:git_repository_id],
           },
+          'events_trial_add' => {
+            klass: Events::TrialAdd,
+            args: [:label, :rule_id],
+          },
         }
       
         @event = make

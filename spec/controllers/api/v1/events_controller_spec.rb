@@ -7,7 +7,10 @@ describe Api::V1::EventsController, type: :controller do
   after(:all) do
     Events::GitRepositoryAdd.destroy_all
     Events::GitRepositoryDestroy.destroy_all
+    Events::TrialAdd.destroy_all
     GitRepository.destroy_all
+    Rule.destroy_all
+    Trial.destroy_all
   end
   
   it 'should accept git repository add events' do
@@ -52,6 +55,35 @@ describe Api::V1::EventsController, type: :controller do
       gram.reload
       expect(response).to be_success
       expect(response_json).to eql(encode_decode(EventSerializer.as_json(gram)))
+    end
+  end
+
+  it 'should accept trial add events' do
+    rand_times.map { { label: Faker::Number.hexadecimal(10) } }.each do |vals|
+      rm = create(:rule)
+
+      post(:create, 'events_trial_add' => vals.merge(rule_id: rm.public_id))
+
+      em = Events::TrialAdd.where(label: vals[:label]).first
+
+      expect(em).to_not be_nil
+      expect(em.trial).to_not be_nil
+      expect(em.trial.label).to eql(vals[:label])
+      expect(em.trial.rule).to eql(rm)
+    end
+  end
+
+  it 'should show trial add events' do
+    rm = create(:rule)
+    rand_array_of_models(:events_trial_add, rule_id: rm.public_id).each do |tam|
+      tm = create(:trial, rule: rm)
+      tam.trial = tm
+
+      get(:show, id: tam.public_id)
+      
+      tam.reload
+      expect(response).to be_success
+      expect(response_json).to eql(encode_decode(EventSerializer.as_json(tam)))
     end
   end
 end

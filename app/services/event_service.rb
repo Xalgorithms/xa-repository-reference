@@ -83,5 +83,17 @@ class EventService
       m.destroy
     end
   end
+
+  def self.trial_add(event_id)
+    e = Events::TrialAdd.where(id: event_id).first
+    rm = Rule.where(public_id: e.rule_id).first
+    if rm
+      tm = Trial.create(label: e.label, rule: rm)
+      e.trial = tm
+      e.save
+
+      TrialService.start(tm._id.to_s)
+    end
+  end
 end
   
