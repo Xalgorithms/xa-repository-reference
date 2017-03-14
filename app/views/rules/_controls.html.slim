@@ -5,10 +5,15 @@
   <!-- ko if: is_xalgo -->
   .control data-bind="if: any_trials"
     span.select
-      select
+      select#trial data-bind="options: trials, optionsText: 'label', optionsValue: 'id', value: active_trial"
   .control
-    a.button
+    a.button data-bind="click: run_trial"
       span.icon.is-small
         = fa_icon('play')
       span Run
+  .control
+    a.button data-bind="click: start_trial"
+      span.icon.is-small
+        = fa_icon('plus')
+      span New
   <!-- /ko -->
