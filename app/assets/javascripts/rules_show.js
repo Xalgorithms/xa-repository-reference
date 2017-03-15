@@ -17,7 +17,7 @@
 
     page_vm.start_trial = function () {
       var ev = {
-	events_trial_add: { rule_id : rule.id }
+	events_trial_add: { rule_id : rule.id, version: page_vm.active_version() }
       };
       
       send_event(ev, function (eo) {

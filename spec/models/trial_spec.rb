@@ -13,7 +13,7 @@ describe Trial, type: :model do
   end
 
   it 'has fields' do
-    verify_fields_exist(:trial, [:label])
+    verify_fields_exist(:trial, [:label, :version])
   end
   
   it 'should have a public id' do

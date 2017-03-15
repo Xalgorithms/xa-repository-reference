@@ -61,12 +61,15 @@ describe Api::V1::EventsController, type: :controller do
   it 'should accept trial add events' do
     rand_times.each do
       rm = create(:rule)
+      ver = Faker::Number.hexadecimal(6)
+      
+      post(:create, 'events_trial_add' => { rule_id: rm.public_id, version: ver })
 
-      post(:create, 'events_trial_add' => { rule_id: rm.public_id })
-
-      em = Events::TrialAdd.where(rule_id: rm.public_id).first
+      em = Events::TrialAdd.where(rule_id: rm.public_id).last
 
       expect(em).to_not be_nil
+      expect(em.rule_id).to eql(rm.public_id)
+      expect(em.version).to eql(ver)
       expect(em.trial).to_not be_nil
       expect(em.trial.label).to_not be_nil
       expect(em.trial.rule).to eql(rm)
