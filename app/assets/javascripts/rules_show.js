@@ -1,5 +1,9 @@
 (function () {
   function init() {
+    function make_trial_vm(o) {
+      return _.assignIn({}, o, { label: o.version + ' @ ' + o.label });
+    }
+    
     var versions = {};
 
     var page_vm = _.extend({}, rule, {
@@ -8,7 +12,7 @@
       versions_loaded: ko.observable(false),
       is_xalgo: ko.observable('xalgo' === rule.type),
       is_table: ko.observable('table' === rule.type),
-      trials: ko.observableArray(rule.trials)
+      trials: ko.observableArray(_.map(rule.trials, make_trial_vm))
     });
 
     page_vm.any_trials = ko.computed(function () {
@@ -22,7 +26,7 @@
       
       send_event(ev, function (eo) {
 	$.getJSON(eo.url, function (o) {
-	  page_vm.trials.push(o);
+	  page_vm.trials.push(make_trial_vm(o));
 	  page_vm.active_trial(o);
 	});
       });

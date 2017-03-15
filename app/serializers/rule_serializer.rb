@@ -10,7 +10,7 @@ class RuleSerializer
       type: rule.rule_type,
       versions: rule.versions.map { |ver| ver.code },
       namespace: { name: rule.namespace.name },
-      trials: rule.trials.map { |tm| { id: tm.public_id, label: tm.label } },
+      trials: TrialSerializer.many(rule.trials),
     }
   end
 end

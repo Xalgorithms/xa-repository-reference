@@ -1,7 +1,11 @@
 #page data-bind="if: versions_loaded"
   .columns
     .column.is-6
-      = render('controls')
+      = render('trial_controls')
+    .column.is-6
+      = render('console_controls')
+  .columns
+    .column.is-6
       = render('vis_xalgo')
       = render('vis_table')
     .column.is-6

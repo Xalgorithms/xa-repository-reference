@@ -14,7 +14,7 @@ describe RuleSerializer do
       type: rm.rule_type,
       versions: rm.versions.map { |vm| vm.code },
       namespace: { name: rm.namespace.name },
-      trials: rm.trials.map { |tm| { id: tm.public_id, label: tm.label } },
+      trials: TrialSerializer.many(rm.trials),
     }
   end
 

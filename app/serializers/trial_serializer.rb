@@ -7,6 +7,7 @@ class TrialSerializer
     {
       id: tm.public_id,
       label: tm.label,
+      version: tm.version,
     }
   end
 end
