@@ -72,7 +72,9 @@ Rails.application.routes.draw do
       resources :namespaces, only: [:show]
       resources :git_repositories, only: [:show]
       resources :pushes, only: [:create]
-      resources :trials, only: [:show]
+      resources :trials, only: [:show] do
+        resources :results, only: [:index]
+      end
     end
   end
 end

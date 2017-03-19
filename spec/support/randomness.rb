@@ -51,6 +51,10 @@ module Randomness
   def rand_array_of_models(name, args = {}, n = 10)
     rand_array(n) { create(name, args) }
   end
+
+  def rand_document
+    rand_array_of_hexes.inject({}) { |o, k| o.merge(k => Faker::Number.hexadecimal(10)) }
+  end
 end
 
 RSpec.configure do |config|
