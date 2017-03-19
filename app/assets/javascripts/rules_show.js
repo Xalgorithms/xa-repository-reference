@@ -12,13 +12,21 @@
       versions_loaded: ko.observable(false),
       is_xalgo: ko.observable('xalgo' === rule.type),
       is_table: ko.observable('table' === rule.type),
-      trials: ko.observableArray(_.map(rule.trials, make_trial_vm))
+      trials: ko.observableArray(_.map(rule.trials, make_trial_vm)),
+      results: ko.observable()
     });
 
     page_vm.any_trials = ko.computed(function () {
       return _.size(page_vm.trials()) > 0;
     });
 
+
+    page_vm.active_trial.subscribe(function (id) {
+      $.getJSON(Routes.api_v1_trial_results_path(id), function (o) {
+	page_vm.results(o);
+      });
+    });
+    
     page_vm.start_trial = function () {
       var ev = {
 	events_trial_add: { rule_id : rule.id, version: page_vm.active_version() }
@@ -27,7 +35,7 @@
       send_event(ev, function (eo) {
 	$.getJSON(eo.url, function (o) {
 	  page_vm.trials.push(make_trial_vm(o));
-	  page_vm.active_trial(o);
+	  page_vm.active_trial(o.id);
 	});
       });
     };
