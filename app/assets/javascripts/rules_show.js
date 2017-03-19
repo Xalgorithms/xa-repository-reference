@@ -24,7 +24,7 @@
       is_table: ko.observable('table' === rule.type),
       trials: ko.observableArray(_.map(rule.trials, make_trial_vm)),
       results: ko.observable(),
-      active_tab: ko.observable('errors')
+      active_console_tab: ko.observable('errors')
     });
 
     page_vm.any_trials = ko.computed(function () {
@@ -40,7 +40,7 @@
       $.getJSON(Routes.api_v1_trial_results_path(id), function (o) {
 	console.log(o);
 	page_vm.results(o);
-	page_vm.active_tab(o.status === 'failure' ? 'errors' : 'tables');
+	page_vm.active_console_tab(o.status === 'failure' ? 'errors' : 'tables');
       });
     });
     
@@ -58,15 +58,15 @@
     };
 
     page_vm.activate_tables = function () {
-      page_vm.active_tab('tables');
+      page_vm.active_console_tab('tables');
     };
 
     page_vm.activate_stack = function () {
-      page_vm.active_tab('stack');
+      page_vm.active_console_tab('stack');
     };
 
     page_vm.activate_errors = function () {
-      page_vm.active_tab('errors');
+      page_vm.active_console_tab('errors');
     };
 
     page_vm.format_error = function (o) {

@@ -1,10 +1,10 @@
 <!-- ko if: is_xalgo -->
 .tabs
   ul
-    li data-bind="css: { 'is-active': active_tab() === 'tables' }"
+    li data-bind="css: { 'is-active': active_console_tab() === 'tables' }"
       a data-bind="click: activate_tables" Tables
-    li data-bind="css: { 'is-active': active_tab() === 'stack' }"
+    li data-bind="css: { 'is-active': active_console_tab() === 'stack' }"
       a data-bind="click: activate_stack" Stack
-    li data-bind="css: { 'is-active': active_tab() === 'errors' }"
+    li data-bind="css: { 'is-active': active_console_tab() === 'errors' }"
       a data-bind="click: activate_errors" Errors
 <!-- /ko -->
