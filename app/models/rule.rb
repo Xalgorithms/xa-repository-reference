@@ -8,4 +8,8 @@ class Rule < PublicDocument
   embeds_many :versions
   embeds_many :registrations
   has_many    :trials
+
+  def find_version(code)
+    versions.where(code: code).first
+  end
 end
