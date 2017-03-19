@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/Xalgorithms/xa-rules.git
-  revision: 49c182610acddd71fd1904a88b86ec142e9cec40
+  revision: 42bd7cfb29800d41ea304bdf550f3440acb7abfb
   specs:
     xa-rules (0.0.8)
       faraday
