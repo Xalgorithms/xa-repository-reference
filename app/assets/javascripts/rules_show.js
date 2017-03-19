@@ -1,4 +1,14 @@
 (function () {
+  const error_formats = {
+    missing_expected_table: function (o) {
+      return 'Missing expected tables: ' + _.join(o.details);
+    }
+  };
+
+  function format_error_unknown(o) {
+    return 'Unknown error';
+  };
+  
   function init() {
     function make_trial_vm(o) {
       return _.assignIn({}, o, { label: o.version + ' @ ' + o.label });
@@ -21,10 +31,16 @@
       return _.size(page_vm.trials()) > 0;
     });
 
+    page_vm.failures = ko.computed(function () {
+      var results = page_vm.results();
+      return results ? results.failures : [];
+    });
 
     page_vm.active_trial.subscribe(function (id) {
       $.getJSON(Routes.api_v1_trial_results_path(id), function (o) {
+	console.log(o);
 	page_vm.results(o);
+	page_vm.active_tab(o.status === 'failure' ? 'errors' : 'tables');
       });
     });
     
@@ -51,6 +67,10 @@
 
     page_vm.activate_errors = function () {
       page_vm.active_tab('errors');
+    };
+
+    page_vm.format_error = function (o) {
+      return _.get(error_formats, o.reason, format_error_unknown)(o);
     };
 
     // get all the versions
