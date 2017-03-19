@@ -13,7 +13,8 @@
       is_xalgo: ko.observable('xalgo' === rule.type),
       is_table: ko.observable('table' === rule.type),
       trials: ko.observableArray(_.map(rule.trials, make_trial_vm)),
-      results: ko.observable()
+      results: ko.observable(),
+      active_tab: ko.observable('errors')
     });
 
     page_vm.any_trials = ko.computed(function () {
@@ -38,6 +39,18 @@
 	  page_vm.active_trial(o.id);
 	});
       });
+    };
+
+    page_vm.activate_tables = function () {
+      page_vm.active_tab('tables');
+    };
+
+    page_vm.activate_stack = function () {
+      page_vm.active_tab('stack');
+    };
+
+    page_vm.activate_errors = function () {
+      page_vm.active_tab('errors');
     };
 
     // get all the versions
