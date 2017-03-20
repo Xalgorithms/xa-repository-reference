@@ -1,6 +1,15 @@
 <!-- ko if: is_xalgo -->
-pre
-  code data-bind="foreach: active_content().unparsed"
-    div data-bind="text: $data"
+.tabs
+  ul
+    li data-bind="css: { 'is-active': active_xalgo_tab() === 'rule' }"
+      a data-bind="click: activate_rule('rule')" Rule
+    li data-bind="css: { 'is-active': active_xalgo_tab() === 'tables' }"
+      a data-bind="click: activate_global_tables" Tables
+<!-- ko if: active_xalgo_tab() === 'rule' -->
+= render('tab_rule')
+<!-- /ko -->
+<!-- ko if: active_xalgo_tab() === 'tables' -->
+= render('tab_global_tables')
+<!-- /ko -->
 <!-- /ko -->
 

@@ -7,4 +7,8 @@
       a data-bind="click: activate_stack" Stack
     li data-bind="css: { 'is-active': active_console_tab() === 'errors' }"
       a data-bind="click: activate_errors" Errors
+
+= render('tab_tables')
+= render('tab_stack')
+= render('tab_errors')
 <!-- /ko -->
