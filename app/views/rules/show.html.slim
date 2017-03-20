@@ -11,6 +11,8 @@
     .column.is-6
       = render('console_xalgo')
 
+  = render('modal_add_table')
+
 = content_for(:javascript) do
   javascript:
     var rule = #{raw MultiJson.encode(@rule)};

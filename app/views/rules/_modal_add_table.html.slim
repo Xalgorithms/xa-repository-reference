@@ -1,4 +1,4 @@
-<!-- ko with: modals.add -->
+<!-- ko with: modals.add_table -->
 .modal data-bind="css: { 'is-active': active }"
   .modal-background
   .modal-card
@@ -10,16 +10,6 @@
       label.label for="name" Name
       p.control
         input.input#name type="text" data-bind="value: name"
-
-      label.label for="rule_type" Type
-      p.control
-        span.select
-          select#rule_type data-bind="options: rule_types, optionsText: 'label', optionsValue: 'key', value: rule_type"
-
-      label.label for="namespace" Namespace
-      p.control
-        span.select
-          select#namespace data-bind="options: namespaces, optionsText: 'name', optionsValue: 'id', value: namespace_id"
 
       label.label for="src" Source
       p.control

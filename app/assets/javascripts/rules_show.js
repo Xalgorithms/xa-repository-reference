@@ -24,6 +24,13 @@
       is_table: ko.observable('table' === rule.type),
       trials: ko.observableArray(_.map(rule.trials, make_trial_vm)),
       results: ko.observable(),
+      modals: {
+	add_table: {
+	  active: ko.observable(false),
+	  name: ko.observable(),
+	  src: ko.observable()
+	}
+      },
       tabs: {
 	console: {
 	  active: ko.observable('errors'),
@@ -68,6 +75,18 @@
 	  page_vm.active_trial(o.id);
 	});
       });
+    };
+
+    page_vm.modals.add_table.activate = function () {
+      page_vm.modals.add_table.active(true);
+    };
+
+    page_vm.modals.add_table.deactivate = function (vm) {
+      vm.active(false);
+    };
+
+    page_vm.modals.add_table.send = function (vm) {
+      vm.active(false);
     };
 
     page_vm.activate_tables = function () {
