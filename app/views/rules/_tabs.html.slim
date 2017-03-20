@@ -1,0 +1,5 @@
+.tabs
+  ul
+    - tabs.each do |tab|
+      li data-bind="css: { 'is-active': tabs.#{vm}.active() === '#{tab[:key]}' }"
+        a data-bind="click: tabs.#{vm}.activate.bind($data, '#{tab[:key]}')" #{tab[:name]}

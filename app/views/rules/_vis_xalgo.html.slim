@@ -1,14 +1,9 @@
 <!-- ko if: is_xalgo -->
-.tabs
-  ul
-    li data-bind="css: { 'is-active': active_xalgo_tab() === 'rule' }"
-      a data-bind="click: activate_rule('rule')" Rule
-    li data-bind="css: { 'is-active': active_xalgo_tab() === 'tables' }"
-      a data-bind="click: activate_global_tables" Tables
-<!-- ko if: active_xalgo_tab() === 'rule' -->
+= render('tabs', tabs: xalgo_tabs, vm: 'xalgo')
+<!-- ko if: tabs.xalgo.active() === 'rule' -->
 = render('tab_rule')
 <!-- /ko -->
-<!-- ko if: active_xalgo_tab() === 'tables' -->
+<!-- ko if: tabs.xalgo.active() === 'tables' -->
 = render('tab_global_tables')
 <!-- /ko -->
 <!-- /ko -->

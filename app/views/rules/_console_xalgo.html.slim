@@ -1,14 +1,12 @@
 <!-- ko if: is_xalgo -->
-.tabs
-  ul
-    li data-bind="css: { 'is-active': active_console_tab() === 'tables' }"
-      a data-bind="click: activate_tables" Tables
-    li data-bind="css: { 'is-active': active_console_tab() === 'stack' }"
-      a data-bind="click: activate_stack" Stack
-    li data-bind="css: { 'is-active': active_console_tab() === 'errors' }"
-      a data-bind="click: activate_errors" Errors
-
+= render('tabs', tabs: console_tabs, vm: 'console')
+<!-- ko if: tabs.console.active() === 'tables' -->
 = render('tab_tables')
+<!-- /ko -->
+<!-- ko if: tabs.console.active() === 'stack' -->
 = render('tab_stack')
+<!-- /ko -->
+<!-- ko if: tabs.console.active() === 'errors' -->
 = render('tab_errors')
+<!-- /ko -->
 <!-- /ko -->
