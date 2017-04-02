@@ -75,6 +75,9 @@ Rails.application.routes.draw do
       resources :trials, only: [:show] do
         resources :results, only: [:index]
       end
+      resources :trial_tables, only: [:show] do
+        resources :content, only: [:index]
+      end
     end
   end
 end
