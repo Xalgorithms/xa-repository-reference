@@ -11,6 +11,7 @@ class RuleSerializer
       versions: rule.versions.map { |ver| ver.code },
       namespace: { name: rule.namespace.name },
       trials: TrialSerializer.many(rule.trials),
+      trial_tables: TrialTableSerializer.many(rule.trial_tables),
     }
   end
 end

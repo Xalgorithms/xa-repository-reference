@@ -4,6 +4,7 @@ describe RuleSerializer do
   after(:each) do
     Rule.destroy_all
     Trial.destroy_all
+    TrialTable.destroy_all
     Version.destroy_all
   end
 
@@ -15,6 +16,7 @@ describe RuleSerializer do
       versions: rm.versions.map { |vm| vm.code },
       namespace: { name: rm.namespace.name },
       trials: TrialSerializer.many(rm.trials),
+      trial_tables: TrialTableSerializer.many(rm.trial_tables),
     }
   end
 
@@ -22,6 +24,7 @@ describe RuleSerializer do
     rand_array_of_models(:rule).each do |rm|
       rand_array_of_models(:version, rule: rm)
       rand_array_of_models(:trial, rule: rm)
+      rand_array_of_models(:trial_table, rule: rm)
       
       expect(RuleSerializer.as_json(rm)).to eql(make_expected(rm))
     end
