@@ -19,11 +19,13 @@ class TrialService
   def self.start(id)
     tm = Trial.find(id)
     vm = tm.rule.find_version(tm.version)
-    rule = interpret(vm.content)
-    ctx = XA::Rules::Context.new
-    tables = {}
-    res = ctx.execute(rule, Audit.new)
-    tm.update_attributes(results: res)
+    if vm
+      rule = interpret(vm.content)
+      ctx = XA::Rules::Context.new
+      tables = {}
+      res = ctx.execute(rule, Audit.new)
+      tm.update_attributes(results: res)
+    end
   end
 
   def self.interpret(content)
