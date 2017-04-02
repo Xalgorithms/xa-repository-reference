@@ -99,10 +99,10 @@ class EventService
 
   def self.trial_table_add(event_id)
     e = Events::TrialTableAdd.where(id: event_id).first
-    tm = Trial.where(public_id: e.trial_id).first
-    if tm
+    rm = Rule.where(public_id: e.rule_id).first
+    if rm
       content = MultiJson.decode(e.content) if e.content
-      ttm = TrialTable.create(trial: tm, name: e.name, content: content)
+      ttm = TrialTable.create(rule: rm, name: e.name, content: content)
       e.trial_table = ttm
       e.save
     end

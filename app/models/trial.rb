@@ -4,5 +4,4 @@ class Trial < PublicDocument
   field      :results, type: Hash
 
   belongs_to :rule
-  has_many   :trial_tables
 end

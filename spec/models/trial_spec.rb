@@ -23,8 +23,4 @@ describe Trial, type: :model do
   it 'should associate with a rule' do
     verify_belongs_to(:trial, :rule)
   end
-
-  it 'should have trial tables' do
-    verify_has_many(:trial, :trial_table)
-  end
 end

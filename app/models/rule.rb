@@ -7,7 +7,9 @@ class Rule < PublicDocument
   belongs_to :namespace
   embeds_many :versions
   embeds_many :registrations
+
   has_many    :trials
+  has_many    :trial_tables
 
   def find_version(code)
     versions.where(code: code).first

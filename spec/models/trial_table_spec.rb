@@ -6,7 +6,7 @@ describe TrialTable, type: :model do
   
   after(:all) do
     models = [
-      Trial,
+      Rule,
       TrialTable,
     ]
     destroy_many(models)
@@ -20,7 +20,7 @@ describe TrialTable, type: :model do
     verify_public_id(:trial_table)
   end
 
-  it 'should associate with a trial' do
-    verify_belongs_to(:trial_table, :trial)
+  it 'should associate with a rule' do
+    verify_belongs_to(:trial_table, :rule)
   end
 end

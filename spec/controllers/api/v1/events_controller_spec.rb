@@ -93,30 +93,30 @@ describe Api::V1::EventsController, type: :controller do
 
   it 'should accept trial table add events' do
     rand_times.each do
-      tm = create(:trial)
+      rm = create(:rule)
       name = Faker::StarWars.planet
       content = rand_array { rand_document }
 
-      post(:create, 'events_trial_table_add' => { trial_id: tm.public_id, name: name, content: MultiJson.encode(content) })
+      post(:create, 'events_trial_table_add' => { rule_id: rm.public_id, name: name, content: MultiJson.encode(content) })
 
-      em = Events::TrialTableAdd.where(trial_id: tm.public_id).last
+      em = Events::TrialTableAdd.where(rule_id: rm.public_id).last
 
       expect(em).to_not be_nil
-      expect(em.trial_id).to eql(tm.public_id)
+      expect(em.rule_id).to eql(rm.public_id)
       expect(em.name).to eql(name)
       expect(em.content).to eql(MultiJson.encode(content))
 
       expect(em.trial_table).to_not be_nil
       expect(em.trial_table.name).to eql(name);
       expect(em.trial_table.content).to eql(content)
-      expect(em.trial_table.trial).to eql(tm)
+      expect(em.trial_table.rule).to eql(rm)
     end
   end
 
   it 'should show trial table add events' do
-    tm = create(:trial)
-    rand_array_of_models(:events_trial_table_add, trial_id: tm.public_id).each do |ttam|
-      ttm = create(:trial_table, trial: tm)
+    rm = create(:rule)
+    rand_array_of_models(:events_trial_table_add, rule_id: rm.public_id).each do |ttam|
+      ttm = create(:trial_table, rule: rm)
       ttam.trial_table = ttm
 
       get(:show, id: ttam.public_id)

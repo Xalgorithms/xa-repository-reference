@@ -19,4 +19,8 @@ describe Rule, type: :model do
   it 'should have many trials' do
     verify_has_many(:rule, :trial)
   end
+
+  it 'should have many trial tables' do
+    verify_has_many(:rule, :trial_table)
+  end
 end

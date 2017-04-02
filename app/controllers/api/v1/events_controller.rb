@@ -41,7 +41,7 @@ module Api
           },
           'events_trial_table_add' => {
             klass: Events::TrialTableAdd,
-            args: [:trial_id, :name, :content],
+            args: [:rule_id, :name, :content],
           },
         }
       
