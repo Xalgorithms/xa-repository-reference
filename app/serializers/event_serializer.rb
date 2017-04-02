@@ -9,6 +9,7 @@ class EventSerializer
     Events::GitRepositoryAdd     => :git_repository_add,
     Events::GitRepositoryDestroy => :git_repository_destroy,
     Events::TrialAdd             => :trial_add,
+    Events::TrialTableAdd        => :trial_table_add,
   }
   
   def self.as_json(e)
@@ -77,6 +78,13 @@ class EventSerializer
     {
       effect: 'addition',
       url: Rails.application.routes.url_helpers.api_v1_trial_path(e.trial.public_id),
+    }      
+  end
+
+  def self.trial_table_add(e)
+    {
+      effect: 'addition',
+      url: Rails.application.routes.url_helpers.api_v1_trial_table_path(e.trial_table.public_id),
     }      
   end
 end

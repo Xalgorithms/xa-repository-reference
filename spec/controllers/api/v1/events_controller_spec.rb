@@ -11,6 +11,7 @@ describe Api::V1::EventsController, type: :controller do
     GitRepository.destroy_all
     Rule.destroy_all
     Trial.destroy_all
+    TrialTable.destroy_all
   end
   
   it 'should accept git repository add events' do
@@ -87,6 +88,42 @@ describe Api::V1::EventsController, type: :controller do
       tam.reload
       expect(response).to be_success
       expect(response_json).to eql(encode_decode(EventSerializer.as_json(tam)))
+    end
+  end
+
+  it 'should accept trial table add events' do
+    rand_times.each do
+      tm = create(:trial)
+      name = Faker::StarWars.planet
+      content = rand_array { rand_document }
+
+      post(:create, 'events_trial_table_add' => { trial_id: tm.public_id, name: name, content: MultiJson.encode(content) })
+
+      em = Events::TrialTableAdd.where(trial_id: tm.public_id).last
+
+      expect(em).to_not be_nil
+      expect(em.trial_id).to eql(tm.public_id)
+      expect(em.name).to eql(name)
+      expect(em.content).to eql(MultiJson.encode(content))
+
+      expect(em.trial_table).to_not be_nil
+      expect(em.trial_table.name).to eql(name);
+      expect(em.trial_table.content).to eql(content)
+      expect(em.trial_table.trial).to eql(tm)
+    end
+  end
+
+  it 'should show trial table add events' do
+    tm = create(:trial)
+    rand_array_of_models(:events_trial_table_add, trial_id: tm.public_id).each do |ttam|
+      ttm = create(:trial_table, trial: tm)
+      ttam.trial_table = ttm
+
+      get(:show, id: ttam.public_id)
+      
+      ttam.reload
+      expect(response).to be_success
+      expect(response_json).to eql(encode_decode(EventSerializer.as_json(ttam)))
     end
   end
 end

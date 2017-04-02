@@ -96,5 +96,16 @@ class EventService
       TrialService.start(tm._id.to_s)
     end
   end
+
+  def self.trial_table_add(event_id)
+    e = Events::TrialTableAdd.where(id: event_id).first
+    tm = Trial.where(public_id: e.trial_id).first
+    if tm
+      content = MultiJson.decode(e.content) if e.content
+      ttm = TrialTable.create(trial: tm, name: e.name, content: content)
+      e.trial_table = ttm
+      e.save
+    end
+  end
 end
   
