@@ -48,6 +48,8 @@ gem 'uuid'
 # ours
 gem 'xa-rules', git: 'https://github.com/Xalgorithms/xa-rules.git'
 
+gem 'puma'
+
 group :development, :test do
   gem 'awesome_print'
   gem 'byebug'
@@ -62,13 +64,11 @@ end
 group :development do
   gem 'pry-rails'
   gem 'spring'
-  gem 'thin'
   gem 'web-console', '~> 2.0'
 end
 
 group :production, :staging do
   gem 'foreman'
-  gem 'puma'
   gem 'rails_stdout_logging'
   gem 'rails_12factor'
 end

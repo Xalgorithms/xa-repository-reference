@@ -9,10 +9,10 @@ GIT
 
 GIT
   remote: https://github.com/libgit2/rugged.git
-  revision: 4b0361b01a7adf859b7801e50c01ce4f3279a21b
+  revision: 57b46ebe7d32db16681c848c1d9388207fa2666c
   submodules: true
   specs:
-    rugged (0.25.0)
+    rugged (0.26.0b5)
 
 GEM
   remote: https://rubygems.org/
@@ -70,49 +70,47 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.12.2)
-    concurrent-ruby (1.0.4)
-    daemons (1.2.4)
+    concurrent-ruby (1.0.5)
     debug_inspector (0.0.2)
     diff-lcs (1.3)
     erubis (2.7.0)
-    eventmachine (1.2.1)
     execjs (2.7.0)
     factory_girl (4.8.0)
       activesupport (>= 3.0.0)
     factory_girl_rails (4.8.0)
       factory_girl (~> 4.8.0)
       railties (>= 3.0.0)
-    faker (1.7.2)
+    faker (1.7.3)
       i18n (~> 0.5)
-    faraday (0.11.0)
+    faraday (0.12.0.1)
       multipart-post (>= 1.2, < 3)
     faraday_middleware (0.11.0.1)
       faraday (>= 0.7.4, < 1.0)
     font-awesome-rails (4.7.0.1)
       railties (>= 3.2, < 5.1)
-    foreman (0.83.0)
+    foreman (0.84.0)
       thor (~> 0.19.1)
     fuubar (2.2.0)
       rspec-core (~> 3.0)
       ruby-progressbar (~> 1.4)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
-    i18n (0.7.0)
-    jbuilder (2.6.1)
-      activesupport (>= 3.0.0, < 5.1)
+    i18n (0.8.1)
+    jbuilder (2.6.3)
+      activesupport (>= 3.0.0, < 5.2)
       multi_json (~> 1.2)
-    jquery-rails (4.2.2)
+    jquery-rails (4.3.1)
       rails-dom-testing (>= 1, < 3)
       railties (>= 4.2.0)
       thor (>= 0.14, < 2.0)
-    js-routes (1.3.2)
+    js-routes (1.3.3)
       railties (>= 3.2)
       sprockets-rails
     json (1.8.6)
     knockoutjs-rails (3.4.0.1)
       railties (>= 3.1, < 6)
-    libv8 (3.16.14.17)
-    lodash-rails (4.17.2)
+    libv8 (3.16.14.19)
+    lodash-rails (4.17.4)
       railties (>= 3.1)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
@@ -139,7 +137,7 @@ GEM
       rspec (~> 3.3)
     multi_json (1.12.1)
     multipart-post (2.0.0)
-    nokogiri (1.7.0.1)
+    nokogiri (1.7.1)
       mini_portile2 (~> 2.1.0)
     origin (2.3.0)
     parslet (1.7.1)
@@ -148,9 +146,9 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
-    pry-rails (0.3.4)
-      pry (>= 0.9.10)
-    puma (3.6.2)
+    pry-rails (0.3.6)
+      pry (>= 0.10.4)
+    puma (3.8.2)
     rack (1.6.5)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -217,7 +215,7 @@ GEM
     slim (3.0.7)
       temple (~> 0.7.6)
       tilt (>= 1.3.3, < 2.1)
-    slim-rails (3.1.1)
+    slim-rails (3.1.2)
       actionpack (>= 3.1)
       railties (>= 3.1)
       slim (~> 3.0)
@@ -238,19 +236,15 @@ GEM
     therubyracer (0.12.3)
       libv8 (~> 3.16.14.15)
       ref
-    thin (1.7.0)
-      daemons (~> 1.0, >= 1.0.9)
-      eventmachine (~> 1.0, >= 1.0.4)
-      rack (>= 1, < 3)
     thor (0.19.4)
-    thread_safe (0.3.5)
-    tilt (2.0.5)
+    thread_safe (0.3.6)
+    tilt (2.0.7)
     turbolinks (5.0.1)
       turbolinks-source (~> 5)
     turbolinks-source (5.0.0)
-    tzinfo (1.2.2)
+    tzinfo (1.2.3)
       thread_safe (~> 0.1)
-    uglifier (3.0.4)
+    uglifier (3.1.12)
       execjs (>= 0.3.0, < 3)
     uuid (2.3.8)
       macaddr (~> 1.0)
@@ -295,7 +289,6 @@ DEPENDENCIES
   spring
   stringjs-rails
   therubyracer
-  thin
   turbolinks
   uglifier (>= 1.3.0)
   uuid
