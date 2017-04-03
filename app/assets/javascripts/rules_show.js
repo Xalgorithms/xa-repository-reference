@@ -26,7 +26,18 @@
 
     function make_trial_table_vm(o) {
       var extras = {
-        content: ko.computed(get_loaded_trial_table(o.name))
+        content: ko.computed(get_loaded_trial_table(o.name)),
+	remove: function (vm) {
+	  var ev = {
+	    events_trial_table_remove: { trial_table_id: vm.id }
+	  };
+	  
+	  send_event(ev, function (eo) {
+	    page_vm.trial_tables.remove(function (o) {
+	      return o.id === eo.id;
+	    });
+	  });
+        }
       };
 
       extras.row_count = ko.computed(function () {

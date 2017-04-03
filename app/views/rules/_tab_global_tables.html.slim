@@ -9,7 +9,10 @@ table.table
     th Content
   tbody data-bind="foreach: trial_tables"
     tr
-      td data-bind="text: name"
+      td
+        a rel="nofollow" data-bind="click: remove"
+          = fa_icon('remove')
+        span data-bind="text: name"
       td
         span data-bind="text: row_count"
         span &nbsp;rows
