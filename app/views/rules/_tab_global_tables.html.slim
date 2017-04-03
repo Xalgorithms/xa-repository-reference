@@ -3,3 +3,14 @@
     span.icon.is-small
       = fa_icon('plus')
     span Add
+table.table
+  thead
+    th Name
+    th Content
+  tbody data-bind="foreach: trial_tables"
+    tr
+      td data-bind="text: name"
+      td
+        span data-bind="text: row_count"
+        span &nbsp;rows
+  

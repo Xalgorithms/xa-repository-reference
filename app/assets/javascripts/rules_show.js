@@ -10,12 +10,32 @@
   };
   
   function init() {
+    var versions = {};
+    var trial_table_content = {};
+    var trial_tables_loaded = ko.observable(false);
+
     function make_trial_vm(o) {
       return _.assignIn({}, o, { label: o.version + ' @ ' + o.label });
     }
-    
-    var versions = {};
 
+    function get_loaded_trial_table(name) {
+      return function () {
+        return trial_tables_loaded() ? { loaded: true, content: _.get(trial_table_content, name) } : { loaded: false };
+      };
+    }
+
+    function make_trial_table_vm(o) {
+      var extras = {
+        content: ko.computed(get_loaded_trial_table(o.name))
+      };
+
+      extras.row_count = ko.computed(function () {
+	var content = extras.content();
+	return content.loaded ? _.size(content.content) : 'not loaded';
+      });
+      return _.assignIn({}, o, extras);
+    }
+    
     var page_vm = _.extend({}, rule, {
       active_version: ko.observable(_.head(rule.versions)),
       active_trial: ko.observable(_.last(rule.trials)),
@@ -23,12 +43,13 @@
       is_xalgo: ko.observable('xalgo' === rule.type),
       is_table: ko.observable('table' === rule.type),
       trials: ko.observableArray(_.map(rule.trials, make_trial_vm)),
+      trial_tables: ko.observableArray(_.map(rule.trial_tables, make_trial_table_vm)),
       results: ko.observable(),
       modals: {
 	add_table: {
 	  active: ko.observable(false),
 	  name: ko.observable(),
-	  src: ko.observable()
+	  content: ko.observable()
 	}
       },
       tabs: {
@@ -86,6 +107,21 @@
     };
 
     page_vm.modals.add_table.send = function (vm) {
+      var ev = {
+	events_trial_table_add: { rule_id : rule.id, name: vm.name(), content: vm.content() || '' }
+      };
+
+      trial_tables_loaded(false);
+      send_event(ev, function (eo) {
+        $.getJSON(eo.url, function (o) {
+	  $.getJSON(Routes.api_v1_trial_table_content_index_path(o.id), function (content) {
+	    var tt = make_trial_table_vm(o);
+	    trial_table_content[o.name] = content;
+	    page_vm.trial_tables.push(tt);
+	    trial_tables_loaded(true);
+	  });
+        });
+      });
       vm.active(false);
     };
 
@@ -118,6 +154,14 @@
       $.getJSON(Routes.api_v1_rule_version_path(rule.id, ver), function (o) {
 	_.set(versions, ver, o);
 	page_vm.versions_loaded(_.size(versions) === _.size(rule.versions));
+      });
+    });
+
+    // get all the trial tables
+    _.each(rule.trial_tables, function (tt) {
+      $.getJSON(Routes.api_v1_trial_table_content_index_path(tt.id), function (o) {
+        _.set(trial_table_content, tt.name, o ? o : []);
+        trial_tables_loaded(_.size(trial_table_content) === _.size(rule.trial_tables));
       });
     });
 

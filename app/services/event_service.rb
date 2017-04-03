@@ -101,7 +101,7 @@ class EventService
     e = Events::TrialTableAdd.where(id: event_id).first
     rm = Rule.where(public_id: e.rule_id).first
     if rm
-      content = MultiJson.decode(e.content) if e.content
+      content = MultiJson.decode(e.content) if e.content && !e.content.empty?
       ttm = TrialTable.create(rule: rm, name: e.name, content: content)
       e.trial_table = ttm
       e.save
