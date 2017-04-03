@@ -43,6 +43,10 @@ module Api
             klass: Events::TrialTableAdd,
             args: [:rule_id, :name, :content],
           },
+          'events_trial_table_remove' => {
+            klass: Events::TrialTableRemove,
+            args: [:trial_table_id],
+          },
         }
       
         @event = make

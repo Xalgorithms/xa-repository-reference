@@ -8,6 +8,8 @@ describe Api::V1::EventsController, type: :controller do
     Events::GitRepositoryAdd.destroy_all
     Events::GitRepositoryDestroy.destroy_all
     Events::TrialAdd.destroy_all
+    Events::TrialTableAdd.destroy_all
+    Events::TrialTableRemove.destroy_all
     GitRepository.destroy_all
     Rule.destroy_all
     Trial.destroy_all
@@ -124,6 +126,19 @@ describe Api::V1::EventsController, type: :controller do
       ttam.reload
       expect(response).to be_success
       expect(response_json).to eql(encode_decode(EventSerializer.as_json(ttam)))
+    end
+  end
+
+  it 'should accept trial table destroy events' do
+    clean_em_id = nil
+    rand_array_of_models(:trial_table).each do |ttm|
+      post(:create, 'events_trial_table_remove' => { trial_table_id: ttm.public_id })
+
+      cr = Events::TrialTableRemove.where(trial_table_id: ttm.public_id)
+      expect(cr.count).to eql(1)
+      em = cr.first
+      expect(em).to_not be_nil
+      expect(TrialTable.where(public_id: ttm.public_id).first).to be_nil
     end
   end
 end

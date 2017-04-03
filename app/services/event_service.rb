@@ -107,5 +107,10 @@ class EventService
       e.save
     end
   end
+
+  def self.trial_table_remove(event_id)
+    e = Events::TrialTableRemove.where(id: event_id).first
+    TrialTable.where(public_id: e.trial_table_id).destroy
+  end
 end
   
