@@ -4,4 +4,5 @@ class Trial < PublicDocument
   field      :results, type: Hash
 
   belongs_to :rule
+  embeds_many :trial_steps
 end

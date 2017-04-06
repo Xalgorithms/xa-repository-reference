@@ -3,10 +3,12 @@ require_relative './public_model_checks'
 
 describe Trial, type: :model do
   include PublicModelChecks
+  include Randomness
   
   after(:all) do
     models = [
       Trial,
+      TrialStep,
       Rule,
     ]
     destroy_many(models)
@@ -22,5 +24,9 @@ describe Trial, type: :model do
 
   it 'should associate with a rule' do
     verify_belongs_to(:trial, :rule)
+  end
+
+  it 'should have trial steps' do
+    verify_has_many(:trial, :trial_step)
   end
 end
