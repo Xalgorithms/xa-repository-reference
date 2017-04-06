@@ -46,10 +46,13 @@
       });
       return _.assignIn({}, o, extras);
     }
-    
+
     var page_vm = _.extend({}, rule, {
-      active_version: ko.observable(_.head(rule.versions)),
-      active_trial: ko.observable(_.last(rule.trials)),
+      active_version: ko.observable(),
+      active_trial: ko.observable(),
+      active_step: null,
+      active_trial_tables: ko.observable({}),
+      active_trial_stack: ko.observable([]),
       versions_loaded: ko.observable(false),
       is_xalgo: ko.observable('xalgo' === rule.type),
       is_table: ko.observable('table' === rule.type),
@@ -79,10 +82,21 @@
       }
     });
 
+    if (_.size(rule.trials)) {
+      page_vm.active_trial(_.last(rule.trials).id);
+    }
+    if (_.size(rule.versions)) {
+      page_vm.active_version(_.head(rule.version));
+    }
+
     page_vm.any_trials = ko.computed(function () {
       return _.size(page_vm.trials()) > 0;
     });
 
+    page_vm.active_trial_table_names = ko.computed(function () {
+      return _.keys(page_vm.active_trial_tables());
+    });
+    
     page_vm.failures = ko.computed(function () {
       var results = page_vm.results();
       return results ? results.failures : [];
@@ -90,7 +104,6 @@
 
     page_vm.active_trial.subscribe(function (id) {
       $.getJSON(Routes.api_v1_trial_results_path(id), function (o) {
-	console.log(o);
 	page_vm.results(o);
 	// page_vm.active_console_tab(o.status === 'failure' ? 'errors' : 'tables');
       });
@@ -160,10 +173,40 @@
       return _.get(error_formats, o.reason, format_error_unknown)(o);
     };
 
+    function make_version_vm(o) {
+      var lines = _.map(o.unparsed, function (ln, i) {
+	return {
+	  code: ln,
+	  active: ko.observable(false),
+	  activate: function(vm) {
+	    var id = page_vm.active_trial();
+	    if (page_vm.active_step) {
+	      page_vm.active_step.active(false);
+	    }
+	    
+	    if (id) {
+	      $.getJSON(Routes.api_v1_trial_step_path(id, i), function (step) {
+		page_vm.active_trial_tables(_.map(step.tables, function (v, k) {
+		  return { name: k, row_count: _.size(v) };
+		}));
+		page_vm.active_trial_stack(_.map(step.stack, function (tbl) {
+		  return { row_count: _.size(tbl) };
+		}));
+	      });
+	    }
+	    vm.active(true);
+	    page_vm.active_step = vm;
+	  }
+	};
+      });
+
+      return { lines: lines };
+    };
+    
     // get all the versions
-    _.each(rule.versions, function (ver) {
+    _.each(rule.versions, function (ver, i) {
       $.getJSON(Routes.api_v1_rule_version_path(rule.id, ver), function (o) {
-	_.set(versions, ver, o);
+	_.set(versions, ver, make_version_vm(o));
 	page_vm.versions_loaded(_.size(versions) === _.size(rule.versions));
       });
     });
@@ -179,7 +222,7 @@
     page_vm.active_content = ko.computed(function () {
       return page_vm.versions_loaded() ? _.get(versions, page_vm.active_version()) : null;
     });
-    
+
     ko.applyBindings(page_vm, document.getElementById('page'));
   }
 

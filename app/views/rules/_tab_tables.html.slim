@@ -1,1 +1,11 @@
-p tables
+table.table
+  thead
+    th Name
+    th Content
+  tbody data-bind="foreach: active_trial_tables"
+    tr
+      td
+        span data-bind="text: name"
+      td
+        span data-bind="text: row_count"
+        span &nbsp;rows

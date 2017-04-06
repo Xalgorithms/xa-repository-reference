@@ -1,3 +1,6 @@
 pre
-  code data-bind="foreach: active_content().unparsed"
-    div data-bind="text: $data"
+  code data-bind="foreach: active_content().lines"
+    div
+      span data-bind="if: active"
+        = fa_icon('arrow-circle-right')
+      a data-bind="text: code, click: activate"
