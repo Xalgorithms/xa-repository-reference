@@ -74,6 +74,7 @@ Rails.application.routes.draw do
       resources :pushes, only: [:create]
       resources :trials, only: [:show] do
         resources :results, only: [:index]
+        resources :steps, only: [:show]
       end
       resources :trial_tables, only: [:show] do
         resources :content, only: [:index]
