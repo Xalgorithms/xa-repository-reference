@@ -1,8 +1,8 @@
 GIT
   remote: https://github.com/Xalgorithms/xa-rules.git
-  revision: 42bd7cfb29800d41ea304bdf550f3440acb7abfb
+  revision: 49abc0530f67c1f6425bf1331a4d627a33004253
   specs:
-    xa-rules (0.0.8)
+    xa-rules (0.0.9)
       faraday
       faraday_middleware
       parslet
@@ -56,7 +56,6 @@ GEM
     awesome_print (1.7.0)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
-    blankslate (3.1.3)
     bson (4.2.1)
     builder (3.2.3)
     bulma-rails (0.2.3)
@@ -140,8 +139,7 @@ GEM
     nokogiri (1.7.1)
       mini_portile2 (~> 2.1.0)
     origin (2.3.0)
-    parslet (1.7.1)
-      blankslate (>= 2.0, <= 4.0)
+    parslet (1.8.0)
     pry (0.10.4)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
