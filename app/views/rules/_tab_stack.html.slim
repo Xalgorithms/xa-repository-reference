@@ -1,5 +1,10 @@
 <!-- ko foreach: active_trial_stack -->
-div
-  span data-bind="text: row_count"
-  span &nbsp;rows
+    .card
+      .card-content
+        .table-card-count
+          span data-bind="text: row_count"
+          span &nbsp;
+          span rows
+        .table-card-keys
+          span data-bind="text: all_keys"
 <!-- /ko -->

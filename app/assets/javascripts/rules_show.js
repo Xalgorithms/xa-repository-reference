@@ -24,27 +24,61 @@
       };
     }
 
-    function make_trial_table_vm(o) {
-      var extras = {
-        content: ko.computed(get_loaded_trial_table(o.name)),
-	remove: function (vm) {
-	  var ev = {
-	    events_trial_table_remove: { trial_table_id: vm.id }
-	  };
-	  
-	  send_event(ev, function (eo) {
-	    page_vm.trial_tables.remove(function (o) {
-	      return o.id === eo.id;
-	    });
-	  });
-        }
+    function determine_all_keys(tbl) {
+      return _.uniq(_.reduce(tbl, function (a, r) {
+	return _.concat(a, _.keys(r));
+      }, []));
+    }
+
+    function join_keys(ks) {
+      return _.join(ks, ' / ');
+    }
+    
+    function make_table_vm(o, load_fn, extra_fn) {
+      var vm = {
+        content: ko.computed(load_fn(o.name))
       };
 
-      extras.row_count = ko.computed(function () {
-	var content = extras.content();
+      vm.row_count = ko.computed(function () {
+	var content = vm.content();
 	return content.loaded ? _.size(content.content) : 'not loaded';
       });
-      return _.assignIn({}, o, extras);
+
+      vm.keys = ko.computed(function() {
+	return determine_all_keys(vm.content().content);
+      });
+
+      vm.all_keys = ko.computed(function () {
+	return join_keys(vm.keys());
+      });
+      
+      return _.assignIn({}, o, extra_fn(vm));
+    }
+
+    function make_trial_table_vm(o) {
+      return make_table_vm(o, get_loaded_trial_table, function (vm) {
+	return _.assignIn(vm, {
+	  remove: function (vm) {
+	    var ev = {
+	      events_trial_table_remove: { trial_table_id: vm.id }
+	    };
+	    
+	    send_event(ev, function (eo) {
+	      page_vm.trial_tables.remove(function (o) {
+		return o.id === eo.id;
+	      });
+	    });
+          }
+	});
+      });
+    }
+
+    function make_active_trial_table_vm(o) {
+      return make_table_vm(o, function (name) {
+	return function () {
+	  return { loaded: true, content: o.content };
+	};
+      }, _.identity);
     }
 
     var page_vm = _.extend({}, rule, {
@@ -187,10 +221,10 @@
 	    if (id) {
 	      $.getJSON(Routes.api_v1_trial_step_path(id, i), function (step) {
 		page_vm.active_trial_tables(_.map(step.tables, function (v, k) {
-		  return { name: k, row_count: _.size(v) };
+		  return make_active_trial_table_vm({ name: k, content: v});
 		}));
 		page_vm.active_trial_stack(_.map(step.stack, function (tbl) {
-		  return { row_count: _.size(tbl) };
+		  return { row_count: _.size(tbl), all_keys: join_keys(determine_all_keys(tbl)) };
 		}));
 	      });
 	    }

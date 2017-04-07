@@ -1,19 +1,18 @@
-.control
-  a.button data-bind="click: modals.add_table.activate"
-    span.icon.is-small
-      = fa_icon('plus')
-    span Add
-table.table
-  thead
-    th Name
-    th Content
-  tbody data-bind="foreach: trial_tables"
-    tr
-      td
-        a rel="nofollow" data-bind="click: remove"
-          = fa_icon('remove')
-        span data-bind="text: name"
-      td
-        span data-bind="text: row_count"
-        span &nbsp;rows
+.columns.is-multline
+  <!-- ko foreach: trial_tables -->
+  .column.is-3
+    .card
+      .card-header
+        .card-header-title
+          span data-bind="text: name"
+      .card-content
+        .table-card-name
+        .table-card-count
+          span data-bind="text: row_count"
+          span &nbsp;
+          span rows
+        .table-card-keys
+          span data-bind="text: all_keys"
+        
+  <!-- /ko -->
   
