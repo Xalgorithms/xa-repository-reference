@@ -31,7 +31,7 @@
     }
 
     function join_keys(ks) {
-      return _.join(ks, ' / ');
+      return _.join(ks, ', ');
     }
     
     function make_table_vm(o, load_fn, extra_fn) {
