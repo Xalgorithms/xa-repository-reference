@@ -5,6 +5,8 @@
       .card-header
         .card-header-title
           span data-bind="text: name"
+        .card-header-icon
+          a.delete.is-small data-bind="click: remove"
       .card-content
         .table-card-name
         .table-card-count
@@ -15,4 +17,8 @@
           span data-bind="text: all_keys"
         
   <!-- /ko -->
-  
+.control
+  button.button data-bind="click: modals.add_table.activate"
+    span.icon.is-small
+      = fa_icon('plus')
+    span Add
