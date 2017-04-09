@@ -1,12 +1,3 @@
 <!-- ko foreach: _.reverse(active_trial_stack()) -->
-    .card
-      .card-content
-        .table-card-count
-          span data-bind="text: row_count"
-          span &nbsp;
-          span rows
-        .table-card-keys
-          span data-bind="text: all_keys"
-      footer.card-footer
-        a.card-footer-item data-bind="click: view" View
+= render('table_card', header: false)
 <!-- /ko -->

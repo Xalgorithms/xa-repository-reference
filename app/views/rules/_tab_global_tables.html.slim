@@ -1,24 +1,5 @@
-.columns.is-multline
-  <!-- ko foreach: trial_tables -->
-  .column.is-3
-    .card
-      .card-header
-        .card-header-title
-          span data-bind="text: name"
-        .card-header-icon
-          a.delete.is-small data-bind="click: remove"
-      .card-content
-        .table-card-name
-        .table-card-count
-          span data-bind="text: row_count"
-          span &nbsp;
-          span rows
-        .table-card-keys
-          span data-bind="text: all_keys"
-      footer.card-footer
-        a.card-footer-item data-bind="click: view" View
-        
-  <!-- /ko -->
+= render('table_cards', vm: 'trial_tables')
+
 .control
   button.button data-bind="click: modals.add_table.activate"
     span.icon.is-small
