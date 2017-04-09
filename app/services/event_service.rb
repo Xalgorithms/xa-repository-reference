@@ -45,11 +45,10 @@ class EventService
     e = Events::RuleDestroy.where(id: event_id).first
     rule = Rule.where(public_id: e.rule_id).first
     rule.registrations.each do |r|
-      p [:r, r]
       registry = Registry.where(public_id: r.registry_public_id).first
       cl = RegistryClient.new(registry.url)
-      cl.delete_rule(r.registry_public_id, r.rule_public_id) do
-        Rails.logger.info("! deleted rule #{r.rule_public_id} on #{r.registry_public_id}")
+      cl.delete_rule(r.registry_public_id, rule.public_id) do
+        Rails.logger.info("! deleted rule #{rule.public_id} on #{r.registry_public_id}")
       end
     end
     rule.destroy
