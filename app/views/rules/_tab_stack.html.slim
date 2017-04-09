@@ -1,4 +1,4 @@
-<!-- ko foreach: active_trial_stack -->
+<!-- ko foreach: _.reverse(active_trial_stack()) -->
     .card
       .card-content
         .table-card-count
@@ -7,4 +7,6 @@
           span rows
         .table-card-keys
           span data-bind="text: all_keys"
+      footer.card-footer
+        a.card-footer-item data-bind="click: view" View
 <!-- /ko -->

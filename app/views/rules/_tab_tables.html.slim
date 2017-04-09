@@ -3,7 +3,7 @@
   .column.is-3
     .card
       .card-header
-        .card-header-title
+        header.card-header-title
           span data-bind="text: name"
       .card-content
         .table-card-name
@@ -13,6 +13,8 @@
           span rows
         .table-card-keys
           span data-bind="text: all_keys"
+      footer.card-footer
+        a.card-footer-item data-bind="click: view" View
         
   <!-- /ko -->
   

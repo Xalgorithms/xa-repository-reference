@@ -1,0 +1,9 @@
+<!-- ko with: table_content -->
+table.table data-bind="if: active"
+  thead
+    tr data-bind="foreach: keys"
+      th data-bind="text: $data"
+  tbody data-bind="foreach: content"
+    tr data-bind="foreach: $data"
+      td data-bind="text: $data"
+<!-- /ko -->

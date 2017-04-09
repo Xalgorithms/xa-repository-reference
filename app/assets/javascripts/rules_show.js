@@ -36,7 +36,10 @@
     
     function make_table_vm(o, load_fn, extra_fn) {
       var vm = {
-        content: ko.computed(load_fn(o.name))
+        content: ko.computed(load_fn(o.name)),
+	view: function (vm) {
+	  page_vm.show_table_content(vm.keys(), vm.content().content);
+	}
       };
 
       vm.row_count = ko.computed(function () {
@@ -51,7 +54,7 @@
       vm.all_keys = ko.computed(function () {
 	return join_keys(vm.keys());
       });
-      
+
       return _.assignIn({}, o, extra_fn(vm));
     }
 
@@ -81,6 +84,17 @@
       }, _.identity);
     }
 
+    function make_active_trial_stack_vm(tbl) {
+      var keys = determine_all_keys(tbl);
+      return {
+	row_count: _.size(tbl),
+	all_keys: join_keys(),
+	view: function () {
+	  page_vm.show_table_content(keys, tbl);
+	}
+      };
+    }
+
     var page_vm = _.extend({}, rule, {
       active_version: ko.observable(),
       active_trial: ko.observable(),
@@ -93,6 +107,11 @@
       trials: ko.observableArray(_.map(rule.trials, make_trial_vm)),
       trial_tables: ko.observableArray(_.map(rule.trial_tables, make_trial_table_vm)),
       results: ko.observable(),
+      table_content: {
+	active: ko.observable(false),
+	keys: ko.observable([]),
+	content: ko.observable([])
+      },
       modals: {
 	add_table: {
 	  active: ko.observable(false),
@@ -154,6 +173,17 @@
 	  page_vm.active_trial(o.id);
 	});
       });
+    };
+
+    page_vm.show_table_content = function(keys, content) {
+      var rows = _.map(content, function (cr) {
+	return _.map(keys, function (k) {
+	  return _.get(cr, k, null);
+	});
+      });
+      page_vm.table_content.active(true);
+      page_vm.table_content.keys(keys);
+      page_vm.table_content.content(rows);
     };
 
     page_vm.modals.add_table.activate = function () {
@@ -224,7 +254,7 @@
 		  return make_active_trial_table_vm({ name: k, content: v});
 		}));
 		page_vm.active_trial_stack(_.map(step.stack, function (tbl) {
-		  return { row_count: _.size(tbl), all_keys: join_keys(determine_all_keys(tbl)) };
+		  return make_active_trial_stack_vm(tbl);
 		}));
 	      });
 	    }
