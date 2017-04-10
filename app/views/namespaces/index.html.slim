@@ -1,4 +1,8 @@
 #page
+  .control.is-grouped
+    .control
+      a.button data-bind="click: add"= t('labels.add', scope: 'shared')
+
   .columns
     .column.is-12
       table.table.is-bordered
@@ -13,6 +17,8 @@
                 = fa_icon('remove')
               span data-bind="text: name"
           <!-- /ko -->
+
+  = render('modal_add')
 
 = content_for(:javascript) do
   javascript:
